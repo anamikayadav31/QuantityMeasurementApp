@@ -13,44 +13,23 @@ namespace QuantityMeasurementApp
                 var service = new QuantityMeasurementService();
 
                 // ----- FIRST VALUE -----
-                Console.WriteLine("Select Unit for First Value:");
-                Console.WriteLine("1. Feet");
-                Console.WriteLine("2. Inches");
-                Console.WriteLine("3. Yards");
-                Console.WriteLine("4. Centimeters");
-                Console.Write("Enter choice (1-4): ");
-                int unitChoice1 = Convert.ToInt32(Console.ReadLine());
-
-                Console.Write("Enter first value: ");
-                double input1 = Convert.ToDouble(Console.ReadLine());
+                QuantityLength quantity1 = ReadQuantity("first");
 
                 // ----- SECOND VALUE -----
-                Console.WriteLine("\nSelect Unit for Second Value:");
-                Console.WriteLine("1. Feet");
-                Console.WriteLine("2. Inches");
-                Console.WriteLine("3. Yards");
-                Console.WriteLine("4. Centimeters");
-                Console.Write("Enter choice (1-4): ");
-                int unitChoice2 = Convert.ToInt32(Console.ReadLine());
+                QuantityLength quantity2 = ReadQuantity("second");
 
-                Console.Write("Enter second value: ");
-                double input2 = Convert.ToDouble(Console.ReadLine());
+                // ----- Demonstrate Conversion -----
+                Console.WriteLine("\nDemonstrating Conversions:");
+                QuantityLength.DemonstrateLengthConversion(quantity1, LengthUnit.FEET);
+                QuantityLength.DemonstrateLengthConversion(quantity1, LengthUnit.INCHES);
+                QuantityLength.DemonstrateLengthConversion(quantity1, LengthUnit.YARDS);
+                QuantityLength.DemonstrateLengthConversion(quantity1, LengthUnit.CENTIMETERS);
 
-                // Convert user choice to LengthUnit
-                LengthUnit unit1 = GetUnit(unitChoice1);
-                LengthUnit unit2 = GetUnit(unitChoice2);
-
-                // Create Quantity objects
-                QuantityLength quantity1 = new QuantityLength(input1, unit1);
-                QuantityLength quantity2 = new QuantityLength(input2, unit2);
-
-                // Compare
+                // ----- Compare -----
+                Console.WriteLine("\nComparing Values:");
                 bool result = service.AreEqual(quantity1, quantity2);
-
-                Console.WriteLine("\nComparing...");
-                Console.WriteLine($"First:  {input1} {unit1}");
-                Console.WriteLine($"Second: {input2} {unit2}");
-                Console.WriteLine("Equal: " + result);
+                QuantityLength.DemonstrateLengthEquality(quantity1, quantity2);
+                QuantityLength.DemonstrateLengthComparison(quantity1, quantity2);
             }
             catch (FormatException)
             {
@@ -62,13 +41,35 @@ namespace QuantityMeasurementApp
             }
         }
 
-        // Helper method to map user input to enum
+        /// <summary>
+        /// Reads a QuantityLength from user input
+        /// </summary>
+        static QuantityLength ReadQuantity(string order)
+        {
+            Console.WriteLine($"\nSelect Unit for {order} value:");
+            Console.WriteLine("1. Feet");
+            Console.WriteLine("2. Inches");
+            Console.WriteLine("3. Yards");
+            Console.WriteLine("4. Centimeters");
+            Console.Write("Enter choice (1-4): ");
+            int unitChoice = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write($"Enter {order} value: ");
+            double value = Convert.ToDouble(Console.ReadLine());
+
+            LengthUnit unit = GetUnit(unitChoice);
+            return new QuantityLength(value, unit);
+        }
+
+        /// <summary>
+        /// Maps numeric choice to LengthUnit
+        /// </summary>
         static LengthUnit GetUnit(int choice)
         {
             return choice switch
             {
                 1 => LengthUnit.FEET,
-                2 => LengthUnit.INCH,
+                2 => LengthUnit.INCHES,
                 3 => LengthUnit.YARDS,
                 4 => LengthUnit.CENTIMETERS,
                 _ => throw new ArgumentException("Invalid unit selection.")
