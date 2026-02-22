@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\QuantityMeasurementTest.csproj": {}
+    "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\QuantityMeasurementTest.csproj": {}
   },
   "projects": {
-    "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\QuantityMeasurementTest.csproj": {
+    "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\QuantityMeasurementTest.csproj",
-        "projectName": "QuantityMeasurementTest",
-        "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\QuantityMeasurementTest.csproj",
+        "projectUniqueName": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj",
+        "projectName": "QuantityMeasurementApp",
+        "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj",
         "packagesPath": "C:\\Users\\anami\\.nuget\\packages\\",
-        "outputPath": "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\obj\\",
+        "outputPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,11 +32,7 @@
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
-            "projectReferences": {
-              "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj": {
-                "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -54,20 +50,6 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "dependencies": {
-            "MSTest.TestAdapter": {
-              "target": "Package",
-              "version": "[4.1.0, )"
-            },
-            "MSTest.TestFramework": {
-              "target": "Package",
-              "version": "[4.1.0, )"
-            },
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[18.0.1, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -362,14 +344,14 @@
         }
       }
     },
-    "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj": {
+    "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\QuantityMeasurementTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj",
-        "projectName": "QuantityMeasurementApp",
-        "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj",
+        "projectUniqueName": "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\QuantityMeasurementTest.csproj",
+        "projectName": "QuantityMeasurementTest",
+        "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\QuantityMeasurementTest.csproj",
         "packagesPath": "C:\\Users\\anami\\.nuget\\packages\\",
-        "outputPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\obj\\",
+        "outputPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -390,7 +372,11 @@
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj": {
+                "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -408,6 +394,20 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[18.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -7,6 +7,7 @@ D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasu
 D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasurementApp.AssemblyInfoInputs.cache
 D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasurementApp.AssemblyInfo.cs
 D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasurementApp.csproj.CoreCompileInputs.cache
+D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasurementApp.sourcelink.json
 D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasurementApp.dll
 D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\refint\QuantityMeasurementApp.dll
 D:\QuantityMeasurementApp\QuantityMeasurementApp\obj\Debug\net10.0\QuantityMeasurementApp.pdb
