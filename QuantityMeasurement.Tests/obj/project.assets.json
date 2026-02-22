@@ -1564,11 +1564,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\QuantityMeasurementTest.csproj",
+      "projectUniqueName": "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\QuantityMeasurementTest.csproj",
       "projectName": "QuantityMeasurementTest",
-      "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\QuantityMeasurementTest.csproj",
+      "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\QuantityMeasurementTest.csproj",
       "packagesPath": "C:\\Users\\anami\\.nuget\\packages\\",
-      "outputPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementTest\\obj\\",
+      "outputPath": "D:\\QuantityMeasurementApp\\QuantityMeasurement.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
