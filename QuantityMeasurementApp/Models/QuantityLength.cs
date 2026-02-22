@@ -3,6 +3,8 @@ using System;
 namespace QuantityMeasurementApp.Models
 {
     // Represents a length value with a unit (Feet or Inch)
+
+
     public class QuantityLength
     {
         public double Value { get; }
@@ -25,7 +27,9 @@ namespace QuantityMeasurementApp.Models
             return Unit switch
             {
                 LengthUnit.FEET => Value,
-                LengthUnit.INCH => Value / 12.0,
+                LengthUnit.INCH => Value / 12.0,          // 12 inch = 1 foot
+                LengthUnit.YARDS => Value * 3.0,          // 1 yard = 3 feet
+                LengthUnit.CENTIMETERS => Value / 30.48,  // 1 foot = 30.48 cm
                 _ => throw new ArgumentException("Unsupported unit")
             };
         }

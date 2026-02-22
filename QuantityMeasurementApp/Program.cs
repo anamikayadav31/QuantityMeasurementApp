@@ -4,7 +4,6 @@ using QuantityMeasurementApp.Services;
 
 namespace QuantityMeasurementApp
 {
-    // Entry point of the Quantity Measurement Application
     class Program
     {
         static void Main(string[] args)
@@ -17,7 +16,9 @@ namespace QuantityMeasurementApp
                 Console.WriteLine("Select Unit for First Value:");
                 Console.WriteLine("1. Feet");
                 Console.WriteLine("2. Inches");
-                Console.Write("Enter choice (1 or 2): ");
+                Console.WriteLine("3. Yards");
+                Console.WriteLine("4. Centimeters");
+                Console.Write("Enter choice (1-4): ");
                 int unitChoice1 = Convert.ToInt32(Console.ReadLine());
 
                 Console.Write("Enter first value: ");
@@ -27,31 +28,28 @@ namespace QuantityMeasurementApp
                 Console.WriteLine("\nSelect Unit for Second Value:");
                 Console.WriteLine("1. Feet");
                 Console.WriteLine("2. Inches");
-                Console.Write("Enter choice (1 or 2): ");
+                Console.WriteLine("3. Yards");
+                Console.WriteLine("4. Centimeters");
+                Console.Write("Enter choice (1-4): ");
                 int unitChoice2 = Convert.ToInt32(Console.ReadLine());
 
                 Console.Write("Enter second value: ");
                 double input2 = Convert.ToDouble(Console.ReadLine());
 
-                // Convert user choice to LengthUnit enum
-                LengthUnit unit1 = unitChoice1 == 1 ? LengthUnit.FEET :
-                                   unitChoice1 == 2 ? LengthUnit.INCH :
-                                   throw new ArgumentException("Invalid unit selection for first value.");
-
-                LengthUnit unit2 = unitChoice2 == 1 ? LengthUnit.FEET :
-                                   unitChoice2 == 2 ? LengthUnit.INCH :
-                                   throw new ArgumentException("Invalid unit selection for second value.");
+                // Convert user choice to LengthUnit
+                LengthUnit unit1 = GetUnit(unitChoice1);
+                LengthUnit unit2 = GetUnit(unitChoice2);
 
                 // Create Quantity objects
                 QuantityLength quantity1 = new QuantityLength(input1, unit1);
                 QuantityLength quantity2 = new QuantityLength(input2, unit2);
 
-                // Compare using single service method
+                // Compare
                 bool result = service.AreEqual(quantity1, quantity2);
 
                 Console.WriteLine("\nComparing...");
-                Console.WriteLine($"First:  {quantity1}");
-                Console.WriteLine($"Second: {quantity2}");
+                Console.WriteLine($"First:  {input1} {unit1}");
+                Console.WriteLine($"Second: {input2} {unit2}");
                 Console.WriteLine("Equal: " + result);
             }
             catch (FormatException)
@@ -62,6 +60,19 @@ namespace QuantityMeasurementApp
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
+        }
+
+        // Helper method to map user input to enum
+        static LengthUnit GetUnit(int choice)
+        {
+            return choice switch
+            {
+                1 => LengthUnit.FEET,
+                2 => LengthUnit.INCH,
+                3 => LengthUnit.YARDS,
+                4 => LengthUnit.CENTIMETERS,
+                _ => throw new ArgumentException("Invalid unit selection.")
+            };
         }
     }
 }

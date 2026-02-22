@@ -1,10 +1,12 @@
-using System;
 namespace QuantityMeasurementApp.Models
 {
-    // Enum defines all supported length units
+    // Each unit stores its conversion factor to FEET (base unit)
+
     public enum LengthUnit
     {
         FEET,
-        INCH
+        INCH,
+        YARDS,
+        CENTIMETERS
     }
 }

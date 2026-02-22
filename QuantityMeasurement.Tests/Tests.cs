@@ -80,5 +80,50 @@ namespace QuantityMeasurementTest
                 Assert.IsTrue(true);
             }
         }
+        //yard tests
+        [TestMethod]
+        public void testEquality_YardToFeet_EquivalentValue()
+        {
+            var q1 = new QuantityLength(1.0, LengthUnit.YARDS);
+            var q2 = new QuantityLength(3.0, LengthUnit.FEET);
+
+            Assert.IsTrue(q1.Equals(q2));
+        }
+
+        [TestMethod]
+        public void testEquality_YardToInches_EquivalentValue()
+        {
+            var q1 = new QuantityLength(1.0, LengthUnit.YARDS);
+            var q2 = new QuantityLength(36.0, LengthUnit.INCH);
+
+            Assert.IsTrue(q1.Equals(q2));
+        }
+
+        [TestMethod]
+        public void testEquality_YardToYard_DifferentValue()
+        {
+            var q1 = new QuantityLength(1.0, LengthUnit.YARDS);
+            var q2 = new QuantityLength(2.0, LengthUnit.YARDS);
+
+            Assert.IsFalse(q1.Equals(q2));
+        }
+        //centimeter tests
+        [TestMethod]
+        public void testEquality_CentimetersToInches_EquivalentValue()
+        {
+            var q1 = new QuantityLength(1.0, LengthUnit.CENTIMETERS);
+            var q2 = new QuantityLength(0.393701, LengthUnit.INCH);
+
+            Assert.IsTrue(q1.Equals(q2));
+        }
+
+        [TestMethod]
+        public void testEquality_CentimetersToFeet_NonEquivalentValue()
+        {
+            var q1 = new QuantityLength(1.0, LengthUnit.CENTIMETERS);
+            var q2 = new QuantityLength(1.0, LengthUnit.FEET);
+
+            Assert.IsFalse(q1.Equals(q2));
+        }
     }
 }
