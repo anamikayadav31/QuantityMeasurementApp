@@ -1,26 +1,34 @@
-using QuantityMeasurementApp.Model;
+using System;
+using QuantityMeasurementApp.Models;
 
-namespace QuantityMeasurementApp.Service
+namespace QuantityMeasurementApp.Services
 {
-    // This class contains business logic for unit comparison
-    public static class QuantityMeasurementService
+    // Handles all length conversion & comparison logic
+    public class QuantityMeasurementService
     {
-        // Static method to compare two Feet values
-        public static bool AreEqual(double value1, double value2)
-        {
-            Feet feet1 = new Feet(value1);
-            Feet feet2 = new Feet(value2);
+        private const double INCH_TO_FEET = 1.0 / 12.0;
 
-            return feet1.Equals(feet2);
+        // Convert any unit to base unit (Feet)
+        private double ConvertToFeet(QuantityLength quantity)
+        {
+            return quantity.Unit switch
+            {
+                LengthUnit.FEET => quantity.Value,
+                LengthUnit.INCH => quantity.Value * INCH_TO_FEET,
+                _ => throw new ArgumentException("Unsupported unit")
+            };
         }
 
-        // Static method to compare two Inches values
-        public static bool AreInchesEqual(double value1, double value2)
+        // Compare two quantities
+        public bool AreEqual(QuantityLength q1, QuantityLength q2)
         {
-            Inches inch1 = new Inches(value1);
-            Inches inch2 = new Inches(value2);
+            if (q1 == null || q2 == null)
+                return false;
 
-            return inch1.Equals(inch2);
+            double value1 = ConvertToFeet(q1);
+            double value2 = ConvertToFeet(q2);
+
+            return Math.Abs(value1 - value2) < 0.0001;
         }
     }
 }

@@ -1,151 +1,79 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QuantityMeasurementApp.Model;
+using QuantityMeasurementApp.Models;
 
 namespace QuantityMeasurementTest
 {
-    // Indicates this class contains unit tests
     [TestClass]
-    public class QuantityMeasurementAppTest
+    public class QuantityLengthTest
     {
-
-        // FEET TEST CASES
-
-
-        // Reflexive Property
+        // Test: Same feet value should be equal
         [TestMethod]
-        public void testEquality_SameReference_Feet()
+        public void testEquality_FeetToFeet_SameValue()
         {
-            Feet feet = new Feet(1.0);
-            Assert.IsTrue(feet.Equals(feet));
+            var q1 = new QuantityLength(1.0, LengthUnit.FEET);
+            var q2 = new QuantityLength(1.0, LengthUnit.FEET);
+
+            Assert.IsTrue(q1.Equals(q2));
         }
 
-        // Value-Based Equality
+        // Test: Same inch value should be equal
         [TestMethod]
-        public void testEquality_SameValue_Feet()
+        public void testEquality_InchToInch_SameValue()
         {
-            Feet feet1 = new Feet(1.0);
-            Feet feet2 = new Feet(1.0);
+            var q1 = new QuantityLength(12.0, LengthUnit.INCH);
+            var q2 = new QuantityLength(12.0, LengthUnit.INCH);
 
-            Assert.IsTrue(feet1.Equals(feet2));
+            Assert.IsTrue(q1.Equals(q2));
         }
 
-        // Different values
+        // Test: 12 inches should equal 1 foot
         [TestMethod]
-        public void testEquality_DifferentValue_Feet()
+        public void testEquality_InchToFeet_EquivalentValue()
         {
-            Feet feet1 = new Feet(1.0);
-            Feet feet2 = new Feet(2.0);
+            var q1 = new QuantityLength(12.0, LengthUnit.INCH);
+            var q2 = new QuantityLength(1.0, LengthUnit.FEET);
 
-            Assert.IsFalse(feet1.Equals(feet2));
+            Assert.IsTrue(q1.Equals(q2));
         }
 
-        // Null Handling
+        // Test: Different feet values should NOT be equal
         [TestMethod]
-        public void testEquality_NullComparison_Feet()
+        public void testEquality_FeetToFeet_DifferentValue()
         {
-            Feet feet = new Feet(1.0);
-            Assert.IsFalse(feet.Equals(null));
+            var q1 = new QuantityLength(1.0, LengthUnit.FEET);
+            var q2 = new QuantityLength(2.0, LengthUnit.FEET);
+
+            Assert.IsFalse(q1.Equals(q2));
         }
 
-        // Type Safety
+        // Test: Object should equal itself (Reflexive property)
         [TestMethod]
-        public void testEquality_TypeMismatch_Feet()
+        public void testEquality_SameReference()
         {
-            Feet feet = new Feet(1.0);
-            object nonFeetObject = "1.0";
+            var q1 = new QuantityLength(1.0, LengthUnit.FEET);
 
-            Assert.IsFalse(feet.Equals(nonFeetObject));
+            Assert.IsTrue(q1.Equals(q1));
         }
 
-        // Symmetric Property
+        // Test: Object compared with null should return false
         [TestMethod]
-        public void testEquality_SymmetricProperty_Feet()
+        public void testEquality_NullComparison()
         {
-            Feet feet1 = new Feet(1.0);
-            Feet feet2 = new Feet(1.0);
+            var q1 = new QuantityLength(1.0, LengthUnit.FEET);
 
-            Assert.IsTrue(feet1.Equals(feet2));
-            Assert.IsTrue(feet2.Equals(feet1));
+            Assert.IsFalse(q1.Equals(null));
         }
 
-        // Transitive Property
-        [TestMethod]
-        public void testEquality_TransitiveProperty_Feet()
-        {
-            Feet feet1 = new Feet(1.0);
-            Feet feet2 = new Feet(1.0);
-            Feet feet3 = new Feet(1.0);
-
-            Assert.IsTrue(feet1.Equals(feet2));
-            Assert.IsTrue(feet2.Equals(feet3));
-            Assert.IsTrue(feet1.Equals(feet3));
-        }
-
-        // Consistency Property
-        [TestMethod]
-        public void testEquality_ConsistentResult_Feet()
-        {
-            Feet feet1 = new Feet(1.0);
-            Feet feet2 = new Feet(1.0);
-
-            Assert.IsTrue(feet1.Equals(feet2));
-            Assert.IsTrue(feet1.Equals(feet2));
-            Assert.IsTrue(feet1.Equals(feet2));
-        }
-
-
-        // INCHES TEST CASES
-
+        // Test: Invalid numeric value (NaN) should throw exception
+        // Test: NaN value should throw ArgumentException
 
         [TestMethod]
-        public void testEquality_SameReference_Inches()
-        {
-            Inches inch = new Inches(12.0);
-            Assert.IsTrue(inch.Equals(inch));
-        }
-
-        [TestMethod]
-        public void testEquality_SameValue_Inches()
-        {
-            Inches inch1 = new Inches(12.0);
-            Inches inch2 = new Inches(12.0);
-
-            Assert.IsTrue(inch1.Equals(inch2));
-        }
-
-        [TestMethod]
-        public void testEquality_DifferentValue_Inches()
-        {
-            Inches inch1 = new Inches(12.0);
-            Inches inch2 = new Inches(10.0);
-
-            Assert.IsFalse(inch1.Equals(inch2));
-        }
-
-        [TestMethod]
-        public void testEquality_NullComparison_Inches()
-        {
-            Inches inch = new Inches(12.0);
-            Assert.IsFalse(inch.Equals(null));
-        }
-
-        [TestMethod]
-        public void testEquality_TypeMismatch_Inches()
-        {
-            Inches inch = new Inches(12.0);
-            object nonInchObject = 12;
-
-            Assert.IsFalse(inch.Equals(nonInchObject));
-        }
-
-        [TestMethod]
-
-        public void testEquality_InvalidNumericInput_Inches()
+        public void testEquality_InvalidNumeric()
         {
             try
             {
-                new Inches(double.NaN);
-                Assert.Fail("Expected ArgumentException was not thrown.");
+                new QuantityLength(double.NaN, LengthUnit.FEET);
+                Assert.Fail("Expected exception not thrown");
             }
             catch (ArgumentException)
             {
