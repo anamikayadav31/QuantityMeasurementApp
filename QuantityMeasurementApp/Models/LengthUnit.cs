@@ -2,11 +2,11 @@ using System;
 
 namespace QuantityMeasurementApp.Models
 {
-    /// <summary>
-    /// Represents supported length units.
-    /// Conversion is done relative to FEET (base unit).
-    /// Each unit stores a conversion factor to FEET.
-    /// </summary>
+    
+    // Represents supported length units.
+    // Conversion is done relative to FEET (base unit).
+    // Each unit stores a conversion factor to FEET.
+  
     public enum LengthUnit
     {
         FEET,        // Base unit
@@ -17,9 +17,9 @@ namespace QuantityMeasurementApp.Models
 
     public static class LengthUnitExtensions
     {
-        /// <summary>
-        /// Returns the conversion factor to base unit (FEET)
-        /// </summary>
+        
+        // Returns the conversion factor to base unit (FEET)
+       
         public static double ToFeetFactor(this LengthUnit unit)
         {
             return unit switch
@@ -32,9 +32,9 @@ namespace QuantityMeasurementApp.Models
             };
         }
 
-        /// <summary>
-        /// Converts a numeric value from this unit to the target unit
-        /// </summary>
+        
+        // Converts a numeric value from this unit to the target unit
+       
         public static double ConvertTo(this double value, LengthUnit fromUnit, LengthUnit toUnit)
         {
             if (double.IsNaN(value) || double.IsInfinity(value))

@@ -3,33 +3,33 @@ using QuantityMeasurementApp.Models;
 
 namespace QuantityMeasurementApp.Services
 {
-    // Handles length conversion and comparison
+    // Handles length conversion, comparison, and addition
     public class QuantityMeasurementService
     {
-        private const double EPSILON = 0.0001; // tolerance for comparison
+        private const double EPSILON = 0.0001; // small tolerance for equality check
 
-        // Convert any quantity to base unit (FEET)
+        // Convert any QuantityLength to base unit (FEET)
         private double ConvertToFeet(QuantityLength quantity)
         {
             if (quantity == null)
                 throw new ArgumentNullException(nameof(quantity));
 
-            // Use LengthUnit extension method for conversion
+            // Use enum's conversion factor
             return quantity.Value * quantity.Unit.ToFeetFactor();
         }
 
-        // Convert a quantity to any target unit
+        // Convert a QuantityLength to a target unit
         public QuantityLength ConvertTo(QuantityLength quantity, LengthUnit targetUnit)
         {
             if (quantity == null)
                 throw new ArgumentNullException(nameof(quantity));
 
-            double valueInFeet = ConvertToFeet(quantity);          // Convert to FEET
-            double convertedValue = valueInFeet / targetUnit.ToFeetFactor(); // Convert to target
-            return new QuantityLength(convertedValue, targetUnit); // Return new QuantityLength
+            double valueInFeet = ConvertToFeet(quantity);               // convert to feet
+            double convertedValue = valueInFeet / targetUnit.ToFeetFactor(); // convert to target unit
+            return new QuantityLength(convertedValue, targetUnit);      // return new object
         }
 
-        // Check if two quantities are equal
+        // Check if two quantities are equal (within EPSILON)
         public bool AreEqual(QuantityLength q1, QuantityLength q2)
         {
             if (q1 == null || q2 == null)
@@ -41,8 +41,18 @@ namespace QuantityMeasurementApp.Services
             return Math.Abs(val1 - val2) < EPSILON;
         }
 
+        // UC6: Add two quantities (result unit = first operand's unit)
+        public QuantityLength Add(QuantityLength q1, QuantityLength q2)
+        {
+            if (q1 == null || q2 == null)
+                throw new ArgumentException("Quantities cannot be null");
+
+            // delegate addition to QuantityLength's Add method
+            return q1.Add(q2);
+        }
+
         // Compare two quantities
-        // Returns -1 if q1 < q2, 0 if equal, 1 if q1 > q2
+        // Returns: -1 if q1 < q2, 0 if equal, 1 if q1 > q2
         public int Compare(QuantityLength q1, QuantityLength q2)
         {
             if (q1 == null || q2 == null)

@@ -2,17 +2,25 @@ using System;
 
 namespace QuantityMeasurementApp.Models
 {
+    
+    /// Represents a length quantity (example: 5 FEET, 12 INCHES).
+    /// This class supports:
+    /// - Unit conversion
+    /// - Addition of two lengths
+    /// - Equality comparison
    
-
     public class QuantityLength
     {
-        // Immutable numeric value of the length
+        // Numeric value (example: 5)
         public double Value { get; }
 
-        // Immutable unit of the length
+        // Unit of the value (example: FEET, INCHES)
         public LengthUnit Unit { get; }
 
-        // Constructor
+        
+        /// Constructor – creates a new QuantityLength object.
+        /// Validates that the numeric value is not NaN or Infinity.
+       
         public QuantityLength(double value, LengthUnit unit)
         {
             if (double.IsNaN(value) || double.IsInfinity(value))
@@ -22,102 +30,92 @@ namespace QuantityMeasurementApp.Models
             Unit = unit;
         }
 
-        // Convert this instance to target unit and return new QuantityLength
-        public QuantityLength ConvertTo(LengthUnit targetUnit)
-        {
-            double baseValue = ToFeet();  // Convert current value to base unit (Feet)
-
-            double convertedValue = targetUnit switch
-            {
-                LengthUnit.FEET => baseValue,
-                LengthUnit.INCHES => baseValue * 12,
-                LengthUnit.YARDS => baseValue / 3,
-                LengthUnit.CENTIMETERS => baseValue * 30.48,
-                _ => throw new ArgumentException("Unsupported target unit")
-            };
-
-            return new QuantityLength(convertedValue, targetUnit);
-        }
-
-        // Private helper: Convert current value to Feet
+        
+        /// Converts the current quantity to FEET.
+        /// FEET is treated as the base unit for all calculations.
+       
         private double ToFeet()
         {
-            return Unit switch
-            {
-                LengthUnit.FEET => Value,
-                LengthUnit.INCHES => Value / 12,
-                LengthUnit.YARDS => Value * 3,
-                LengthUnit.CENTIMETERS => Value / 30.48,
-                _ => throw new ArgumentException("Unsupported unit")
-            };
+            // Convert this unit to feet using extension method
+            return Value * Unit.ToFeetFactor();
         }
 
-        // Static method: Convert a raw value between two units
+        
+        /// Static method:
+        /// Converts a numeric value from one unit to another.
+        /// Example: Convert(1, FEET, INCHES) → 12
+       
         public static double Convert(double value, LengthUnit source, LengthUnit target)
         {
             if (double.IsNaN(value) || double.IsInfinity(value))
                 throw new ArgumentException("Invalid numeric value");
 
-            var temp = new QuantityLength(value, source);
-            return temp.ConvertTo(target).Value;
+            // Step 1: Convert source value to FEET
+            double valueInFeet = value * source.ToFeetFactor();
+
+            // Step 2: Convert FEET to target unit
+            return valueInFeet / target.ToFeetFactor();
         }
 
-        // Override Equals to compare two QuantityLength objects in base unit
-        public override bool Equals(object obj)
+        
+        /// Adds another QuantityLength to this one.
+        /// The result will be returned in THIS object's unit.
+       
+        public QuantityLength Add(QuantityLength other)
         {
-            if (ReferenceEquals(this, obj))
-                return true;
+            if (other == null)
+                throw new ArgumentException("Cannot add null quantity");
 
-            if (obj is not QuantityLength other)
-                return false;
+            // Convert both values to FEET (base unit)
+            double sumInFeet = this.ToFeet() + other.ToFeet();
 
-            return Math.Abs(this.ToFeet() - other.ToFeet()) < 0.0001; // Small tolerance
+            // Convert back to this object's unit
+            double sumInCurrentUnit = sumInFeet / this.Unit.ToFeetFactor();
+
+            // Return a new QuantityLength object
+            return new QuantityLength(sumInCurrentUnit, this.Unit);
         }
 
+        
+        /// Converts this object directly to another unit.
+        /// Example: quantity.ConvertTo(INCHES)
+       
+        public double ConvertTo(LengthUnit targetUnit)
+        {
+            return Convert(this.Value, this.Unit, targetUnit);
+        }
+
+        
+        /// Checks if two QuantityLength objects are equal.
+        /// Equality is checked after converting both to FEET.
+        /// A small tolerance is used for floating-point safety.
+       
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(this, obj)) return true;
+
+            if (obj is not QuantityLength other) return false;
+
+            // Compare values in FEET
+            return Math.Abs(this.ToFeet() - other.ToFeet()) < 0.0001;
+        }
+
+        
+        /// Required when overriding Equals().
+        /// Uses FEET value to generate hash code.
+       
         public override int GetHashCode()
         {
             return ToFeet().GetHashCode();
         }
 
+        
+        /// Returns a readable string like:
+        /// "5 FEET"
+       
         public override string ToString()
         {
-            return $"{Value:F2} {Unit}";
-        }
-
-        // ---------- Demonstration Methods ----------
-
-        // Overloaded method: Convert raw numeric value between units
-        public static void DemonstrateLengthConversion(double value, LengthUnit fromUnit, LengthUnit toUnit)
-        {
-            double converted = Convert(value, fromUnit, toUnit);
-            Console.WriteLine($"{value} {fromUnit} = {converted:F2} {toUnit}");
-        }
-
-        // Overloaded method: Convert an existing QuantityLength object to target unit
-        public static void DemonstrateLengthConversion(QuantityLength length, LengthUnit toUnit)
-        {
-            QuantityLength converted = length.ConvertTo(toUnit);
-            Console.WriteLine($"{length.Value} {length.Unit} = {converted.Value:F2} {converted.Unit}");
-        }
-
-        // Demonstrate equality between two QuantityLength objects
-        public static void DemonstrateLengthEquality(QuantityLength length1, QuantityLength length2)
-        {
-            Console.WriteLine($"{length1} and {length2} are " + (length1.Equals(length2) ? "equal" : "not equal"));
-        }
-
-        // Demonstrate comparison (less than, greater than)
-        public static void DemonstrateLengthComparison(QuantityLength length1, QuantityLength length2)
-        {
-            double val1 = length1.ConvertTo(LengthUnit.FEET).Value;
-            double val2 = length2.ConvertTo(LengthUnit.FEET).Value;
-
-            if (val1 < val2)
-                Console.WriteLine($"{length1} is less than {length2}");
-            else if (val1 > val2)
-                Console.WriteLine($"{length1} is greater than {length2}");
-            else
-                Console.WriteLine($"{length1} is equal to {length2}");
+            return $"{Value} {Unit}";
         }
     }
 }
