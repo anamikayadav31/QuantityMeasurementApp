@@ -2,25 +2,24 @@ using System;
 
 namespace QuantityMeasurementApp.Models
 {
-    
-    /// Represents a length quantity (example: 5 FEET, 12 INCHES).
-    /// This class supports:
-    /// - Unit conversion
-    /// - Addition of two lengths
-    /// - Equality comparison
-   
+/// <summary>
+/// Represents a length quantity (e.g., 5 FEET, 12 INCHES) and provides operations for it.
+/// 
+/// Features:
+/// 1. Stores a numeric value and its <see cref="LengthUnit"/>.
+/// 2. Converts between units (FEET, INCHES, YARDS, CENTIMETERS).
+/// 3. Adds two <see cref="QuantityLength"/> objects:
+///    - Returns result in this object's unit by default.
+///    - Can return result in a specified target unit.
+/// 4. Compares quantities for equality, considering unit conversions.
+/// 5. Provides string representation for display purposes.
+/// 6. Validates numeric input to prevent NaN or Infinity values.
+/// </summary>
     public class QuantityLength
     {
-        // Numeric value (example: 5)
-        public double Value { get; }
+        public double Value { get; }      // Numeric value
+        public LengthUnit Unit { get; }   // Unit of the value
 
-        // Unit of the value (example: FEET, INCHES)
-        public LengthUnit Unit { get; }
-
-        
-        /// Constructor – creates a new QuantityLength object.
-        /// Validates that the numeric value is not NaN or Infinity.
-       
         public QuantityLength(double value, LengthUnit unit)
         {
             if (double.IsNaN(value) || double.IsInfinity(value))
@@ -30,92 +29,64 @@ namespace QuantityMeasurementApp.Models
             Unit = unit;
         }
 
-        
-        /// Converts the current quantity to FEET.
-        /// FEET is treated as the base unit for all calculations.
-       
-        private double ToFeet()
-        {
-            // Convert this unit to feet using extension method
-            return Value * Unit.ToFeetFactor();
-        }
+        // Convert this quantity to FEET (base unit)
+        private double ToFeet() => Value * Unit.ToFeetFactor();
 
-        
-        /// Static method:
-        /// Converts a numeric value from one unit to another.
-        /// Example: Convert(1, FEET, INCHES) → 12
-       
+        // Convert any numeric value from source unit to target unit
         public static double Convert(double value, LengthUnit source, LengthUnit target)
         {
             if (double.IsNaN(value) || double.IsInfinity(value))
                 throw new ArgumentException("Invalid numeric value");
 
-            // Step 1: Convert source value to FEET
             double valueInFeet = value * source.ToFeetFactor();
-
-            // Step 2: Convert FEET to target unit
             return valueInFeet / target.ToFeetFactor();
         }
 
-        
-        /// Adds another QuantityLength to this one.
-        /// The result will be returned in THIS object's unit.
-       
+        // Add another QuantityLength; result is in this object's unit
         public QuantityLength Add(QuantityLength other)
         {
             if (other == null)
                 throw new ArgumentException("Cannot add null quantity");
 
-            // Convert both values to FEET (base unit)
             double sumInFeet = this.ToFeet() + other.ToFeet();
-
-            // Convert back to this object's unit
             double sumInCurrentUnit = sumInFeet / this.Unit.ToFeetFactor();
 
-            // Return a new QuantityLength object
             return new QuantityLength(sumInCurrentUnit, this.Unit);
         }
 
-        
-        /// Converts this object directly to another unit.
-        /// Example: quantity.ConvertTo(INCHES)
-       
-        public double ConvertTo(LengthUnit targetUnit)
+        // NEW: Add another QuantityLength, specifying target unit
+        public QuantityLength Add(QuantityLength other, LengthUnit targetUnit)
         {
-            return Convert(this.Value, this.Unit, targetUnit);
+            if (other == null)
+                throw new ArgumentException("Cannot add null quantity");
+
+            // Validate target unit
+            if (!Enum.IsDefined(typeof(LengthUnit), targetUnit))
+                throw new ArgumentException("Invalid target unit");
+
+            // Step 1: Convert both quantities to base unit (FEET)
+            double sumInFeet = this.ToFeet() + other.ToFeet();
+
+            // Step 2: Convert sum to the specified target unit
+            double sumInTargetUnit = sumInFeet / targetUnit.ToFeetFactor();
+
+            // Return new object in target unit
+            return new QuantityLength(sumInTargetUnit, targetUnit);
         }
 
-        
-        /// Checks if two QuantityLength objects are equal.
-        /// Equality is checked after converting both to FEET.
-        /// A small tolerance is used for floating-point safety.
-       
+        // Convert this object directly to another unit
+        public double ConvertTo(LengthUnit targetUnit) => Convert(this.Value, this.Unit, targetUnit);
+
+        // Equality comparison using FEET as base
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj)) return true;
-
             if (obj is not QuantityLength other) return false;
-
-            // Compare values in FEET
             return Math.Abs(this.ToFeet() - other.ToFeet()) < 0.0001;
         }
 
-        
-        /// Required when overriding Equals().
-        /// Uses FEET value to generate hash code.
-       
-        public override int GetHashCode()
-        {
-            return ToFeet().GetHashCode();
-        }
+        public override int GetHashCode() => ToFeet().GetHashCode();
 
-        
-        /// Returns a readable string like:
-        /// "5 FEET"
-       
-        public override string ToString()
-        {
-            return $"{Value} {Unit}";
-        }
+        public override string ToString() => $"{Value} {Unit}";
     }
 }
