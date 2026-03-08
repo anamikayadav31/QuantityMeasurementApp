@@ -5,18 +5,8 @@ using QuantityMeasurementApp.Services;
 namespace QuantityMeasurementApp
 {
     /// <summary>
-/// Console application to demonstrate operations on <see cref="QuantityLength"/> objects.
-/// 
-/// Features:
-/// 1. Reads two length quantities from user input, including value and unit.
-/// 2. Converts the first quantity to all supported units (Feet, Inches, Yards, Centimeters).
-/// 3. Checks equality between the two quantities, accounting for unit conversions.
-/// 4. Adds the quantities:
-///    - Using the first quantity’s unit (default).
-///    - Using a user-selected target unit.
-/// 5. Displays the sum in all units for clarity.
-/// 6. Handles invalid input and exceptions gracefully.
-/// </summary>
+    /// Main program to test Quantity Measurement operations.
+    /// </summary>
     class Program
     {
         static void Main()
@@ -25,59 +15,36 @@ namespace QuantityMeasurementApp
             {
                 var service = new QuantityMeasurementService();
 
-                // Read two quantities from the user
+                // Read two quantities from user
                 QuantityLength q1 = ReadQuantity("First");
                 QuantityLength q2 = ReadQuantity("Second");
 
-                // ----- Conversion of first value to all units -----
-                Console.WriteLine("\n--- Conversions of First Value ---");
-                Console.WriteLine($"Feet: {q1.ConvertTo(LengthUnit.FEET)}");
-                Console.WriteLine($"Inches: {q1.ConvertTo(LengthUnit.INCHES)}");
-                Console.WriteLine($"Yards: {q1.ConvertTo(LengthUnit.YARDS)}");
-                Console.WriteLine($"Centimeters: {q1.ConvertTo(LengthUnit.CENTIMETERS)}");
+                // Show conversions
+                Console.WriteLine("\n--- First Value in All Units ---");
+                ShowConversions(q1);
 
-                // ----- Equality Check -----
+                // Equality
                 Console.WriteLine("\n--- Equality Check ---");
-                bool areEqual = service.AreEqual(q1, q2);
-                Console.WriteLine($"Are Equal? {areEqual}");
+                bool equal = service.AreEqual(q1, q2);
+                Console.WriteLine("Are Equal? " + equal);
 
-                // ----- Addition in default unit (first quantity's unit) -----
-                Console.WriteLine("\n--- Addition (Default Unit) ---");
-                QuantityLength sumDefault = service.Add(q1, q2); // returns in q1's unit
-                Console.WriteLine($"{q1} + {q2} = {sumDefault}");
+                // Addition
+                Console.WriteLine("\n--- Addition ---");
+                QuantityLength sum = service.Add(q1, q2);
+                Console.WriteLine("Sum: " + sum);
 
-                // ----- Addition in a specific target unit -----
-                Console.WriteLine("\nChoose Target Unit for Sum:");
-                Console.WriteLine("1 - Feet");
-                Console.WriteLine("2 - Inches");
-                Console.WriteLine("3 - Yards");
-                Console.WriteLine("4 - Centimeters");
-                Console.Write("Choice: ");
-                int targetChoice = Convert.ToInt32(Console.ReadLine());
+                // Subtraction
+                Console.WriteLine("\n--- Subtraction ---");
+                QuantityLength diff = service.Subtract(q1, q2);
+                Console.WriteLine("Difference: " + diff);
 
-                LengthUnit targetUnit = targetChoice switch
-                {
-                    1 => LengthUnit.FEET,
-                    2 => LengthUnit.INCHES,
-                    3 => LengthUnit.YARDS,
-                    4 => LengthUnit.CENTIMETERS,
-                    _ => throw new ArgumentException("Invalid target unit")
-                };
+                // Multiplication
+                Console.WriteLine("\n--- Multiplication ---");
+                Console.Write("Enter number to multiply: ");
+                double number = Convert.ToDouble(Console.ReadLine());
 
-                // Call Add as an instance method on q1
-                QuantityLength sumInTarget = q1.Add(q2, targetUnit);
-                Console.WriteLine($"\nSum in {targetUnit}: {sumInTarget}");
-
-                // ----- Show sum in all units for clarity -----
-                Console.WriteLine("\n--- Sum in All Units ---");
-                Console.WriteLine($"Feet: {sumInTarget.ConvertTo(LengthUnit.FEET)}");
-                Console.WriteLine($"Inches: {sumInTarget.ConvertTo(LengthUnit.INCHES)}");
-                Console.WriteLine($"Yards: {sumInTarget.ConvertTo(LengthUnit.YARDS)}");
-                Console.WriteLine($"Centimeters: {sumInTarget.ConvertTo(LengthUnit.CENTIMETERS)}");
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Invalid input. Please enter numeric values only.");
+                QuantityLength result = service.Multiply(q1, number);
+                Console.WriteLine("Result: " + result);
             }
             catch (Exception ex)
             {
@@ -85,31 +52,50 @@ namespace QuantityMeasurementApp
             }
         }
 
-        // Reads a quantity from the user
-        static QuantityLength ReadQuantity(string label)
+        /// <summary>
+        /// Method to read quantity from user
+        /// </summary>
+        static QuantityLength ReadQuantity(string name)
         {
-            Console.WriteLine($"\nEnter {label} Value:");
+            Console.WriteLine($"\nEnter {name} Value:");
+
             Console.Write("Value: ");
             double value = Convert.ToDouble(Console.ReadLine());
 
-            Console.WriteLine("Choose Unit:");
+            Console.WriteLine("Select Unit:");
             Console.WriteLine("1 - Feet");
             Console.WriteLine("2 - Inches");
             Console.WriteLine("3 - Yards");
             Console.WriteLine("4 - Centimeters");
+
             Console.Write("Choice: ");
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            LengthUnit unit = choice switch
-            {
-                1 => LengthUnit.FEET,
-                2 => LengthUnit.INCHES,
-                3 => LengthUnit.YARDS,
-                4 => LengthUnit.CENTIMETERS,
-                _ => throw new ArgumentException("Invalid unit selection")
-            };
+            LengthUnit unit;
+
+            if (choice == 1)
+                unit = LengthUnit.FEET;
+            else if (choice == 2)
+                unit = LengthUnit.INCHES;
+            else if (choice == 3)
+                unit = LengthUnit.YARDS;
+            else if (choice == 4)
+                unit = LengthUnit.CENTIMETERS;
+            else
+                throw new ArgumentException("Invalid unit");
 
             return new QuantityLength(value, unit);
+        }
+
+        /// <summary>
+        /// Show value in all units
+        /// </summary>
+        static void ShowConversions(QuantityLength q)
+        {
+            Console.WriteLine("Feet: " + q.ConvertTo(LengthUnit.FEET));
+            Console.WriteLine("Inches: " + q.ConvertTo(LengthUnit.INCHES));
+            Console.WriteLine("Yards: " + q.ConvertTo(LengthUnit.YARDS));
+            Console.WriteLine("Centimeters: " + q.ConvertTo(LengthUnit.CENTIMETERS));
         }
     }
 }

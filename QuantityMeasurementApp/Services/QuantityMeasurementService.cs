@@ -3,63 +3,107 @@ using QuantityMeasurementApp.Models;
 
 namespace QuantityMeasurementApp.Services
 {
-    // Handles length conversion, comparison, and addition
+    /// <summary>
+    /// Service class responsible for handling all operations
+    /// related to QuantityLength.
+    /// 
+    /// Operations:
+    /// - Conversion
+    /// - Equality check
+    /// - Addition
+    /// - Subtraction
+    /// - Multiplication
+    /// - Comparison
+    /// </summary>
     public class QuantityMeasurementService
     {
-        private const double EPSILON = 0.0001; // small tolerance for equality check
+        // Small tolerance value for decimal comparison
+        private const double EPSILON = 0.0001;
 
-        // Convert any QuantityLength to base unit (FEET)
-        private double ConvertToFeet(QuantityLength quantity)
-        {
-            if (quantity == null)
-                throw new ArgumentNullException(nameof(quantity));
-
-            // Use enum's conversion factor
-            return quantity.Value * quantity.Unit.ToFeetFactor();
-        }
-
-        // Convert a QuantityLength to a target unit
+        /// <summary>
+        /// Convert quantity to another unit
+        /// </summary>
         public QuantityLength ConvertTo(QuantityLength quantity, LengthUnit targetUnit)
         {
             if (quantity == null)
                 throw new ArgumentNullException(nameof(quantity));
 
-            double valueInFeet = ConvertToFeet(quantity);               // convert to feet
-            double convertedValue = valueInFeet / targetUnit.ToFeetFactor(); // convert to target unit
-            return new QuantityLength(convertedValue, targetUnit);      // return new object
+            double convertedValue = quantity.ConvertTo(targetUnit);
+
+            return new QuantityLength(convertedValue, targetUnit);
         }
 
-        // Check if two quantities are equal (within EPSILON)
+        /// <summary>
+        /// Check if two quantities are equal
+        /// </summary>
         public bool AreEqual(QuantityLength q1, QuantityLength q2)
         {
             if (q1 == null || q2 == null)
                 return false;
 
-            double val1 = ConvertToFeet(q1);
-            double val2 = ConvertToFeet(q2);
+            double val1 = q1.Unit.ConvertToBaseUnit(q1.Value);
+            double val2 = q2.Unit.ConvertToBaseUnit(q2.Value);
 
             return Math.Abs(val1 - val2) < EPSILON;
         }
 
-        // UC6: Add two quantities (result unit = first operand's unit)
+        /// <summary>
+        /// Add two quantities
+        /// </summary>
         public QuantityLength Add(QuantityLength q1, QuantityLength q2)
         {
             if (q1 == null || q2 == null)
                 throw new ArgumentException("Quantities cannot be null");
 
-            // delegate addition to QuantityLength's Add method
             return q1.Add(q2);
         }
 
-        // Compare two quantities
-        // Returns: -1 if q1 < q2, 0 if equal, 1 if q1 > q2
+        /// <summary>
+        /// Add two quantities with target unit
+        /// </summary>
+        public QuantityLength Add(QuantityLength q1, QuantityLength q2, LengthUnit targetUnit)
+        {
+            if (q1 == null || q2 == null)
+                throw new ArgumentException("Quantities cannot be null");
+
+            return q1.Add(q2, targetUnit);
+        }
+
+        /// <summary>
+        /// Subtract two quantities
+        /// </summary>
+        public QuantityLength Subtract(QuantityLength q1, QuantityLength q2)
+        {
+            if (q1 == null || q2 == null)
+                throw new ArgumentException("Quantities cannot be null");
+
+            return q1.Subtract(q2);
+        }
+
+        /// <summary>
+        /// Multiply quantity with a number
+        /// </summary>
+        public QuantityLength Multiply(QuantityLength quantity, double factor)
+        {
+            if (quantity == null)
+                throw new ArgumentNullException(nameof(quantity));
+
+            return quantity.Multiply(factor);
+        }
+
+        /// <summary>
+        /// Compare two quantities
+        /// -1 → q1 smaller
+        ///  0 → equal
+        ///  1 → q1 greater
+        /// </summary>
         public int Compare(QuantityLength q1, QuantityLength q2)
         {
             if (q1 == null || q2 == null)
                 throw new ArgumentNullException("Quantity cannot be null");
 
-            double val1 = ConvertToFeet(q1);
-            double val2 = ConvertToFeet(q2);
+            double val1 = q1.Unit.ConvertToBaseUnit(q1.Value);
+            double val2 = q2.Unit.ConvertToBaseUnit(q2.Value);
 
             if (Math.Abs(val1 - val2) < EPSILON)
                 return 0;

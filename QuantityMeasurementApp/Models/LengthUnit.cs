@@ -2,47 +2,77 @@ using System;
 
 namespace QuantityMeasurementApp.Models
 {
-    
-    // Represents supported length units.
-    // Conversion is done relative to FEET (base unit).
-    // Each unit stores a conversion factor to FEET.
-  
+    /// <summary>
+    /// LengthUnit represents all supported length units.
+    /// 
+    /// This enum is responsible for:
+    /// 1. Storing conversion factors
+    /// 2. Converting values TO base unit (Feet)
+    /// 3. Converting values FROM base unit (Feet)
+    /// 
+    /// Base Unit = FEET
+    /// </summary>
     public enum LengthUnit
     {
-        FEET,        // Base unit
-        INCHES,        // 1 inch = 1/12 feet
-        YARDS,       // 1 yard = 3 feet
-        CENTIMETERS  // 1 cm ≈ 1/30.48 feet
+        FEET,
+        INCHES,
+        YARDS,
+        CENTIMETERS
     }
 
+    /// <summary>
+    /// Extension methods for LengthUnit.
+    /// These methods contain all unit conversion logic.
+    /// </summary>
     public static class LengthUnitExtensions
     {
-        
-        // Returns the conversion factor to base unit (FEET)
-       
-        public static double ToFeetFactor(this LengthUnit unit)
+        /// <summary>
+        /// Returns conversion factor of the unit relative to FEET.
+        /// </summary>
+        public static double GetConversionFactor(this LengthUnit unit)
         {
-            return unit switch
+            switch (unit)
             {
-                LengthUnit.FEET => 1.0,
-                LengthUnit.INCHES => 1.0 / 12.0,
-                LengthUnit.YARDS => 3.0,
-                LengthUnit.CENTIMETERS => 1.0 / 30.48,
-                _ => throw new ArgumentException("Unsupported unit")
-            };
+                case LengthUnit.FEET:
+                    return 1.0;
+
+                case LengthUnit.INCHES:
+                    return 1.0 / 12.0;
+
+                case LengthUnit.YARDS:
+                    return 3.0;
+
+                case LengthUnit.CENTIMETERS:
+                    return 1.0 / 30.48;
+
+                default:
+                    throw new ArgumentException("Invalid unit");
+            }
         }
 
-        
-        // Converts a numeric value from this unit to the target unit
-       
-        public static double ConvertTo(this double value, LengthUnit fromUnit, LengthUnit toUnit)
+        /// <summary>
+        /// Convert value from current unit to BASE UNIT (Feet)
+        /// </summary>
+        public static double ConvertToBaseUnit(this LengthUnit unit, double value)
         {
-            if (double.IsNaN(value) || double.IsInfinity(value))
-                throw new ArgumentException("Invalid numeric value");
+            return value * unit.GetConversionFactor();
+        }
 
-            double valueInFeet = value * fromUnit.ToFeetFactor();
-            double convertedValue = valueInFeet / toUnit.ToFeetFactor();
-            return convertedValue;
+        /// <summary>
+        /// Convert value from BASE UNIT (Feet) to current unit
+        /// </summary>
+        public static double ConvertFromBaseUnit(this LengthUnit unit, double baseValue)
+        {
+            return baseValue / unit.GetConversionFactor();
+        }
+
+        /// <summary>
+        /// Convert value from one unit to another unit
+        /// </summary>
+        public static double ConvertTo(this LengthUnit fromUnit, double value, LengthUnit toUnit)
+        {
+            double baseValue = fromUnit.ConvertToBaseUnit(value);
+            return toUnit.ConvertFromBaseUnit(baseValue);
         }
     }
 }
