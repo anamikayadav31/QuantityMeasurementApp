@@ -15,36 +15,54 @@ namespace QuantityMeasurementApp
             {
                 var service = new QuantityMeasurementService();
 
-                // Read two quantities from user
+                // -------- LENGTH OPERATIONS --------
+
                 QuantityLength q1 = ReadQuantity("First");
                 QuantityLength q2 = ReadQuantity("Second");
 
-                // Show conversions
                 Console.WriteLine("\n--- First Value in All Units ---");
                 ShowConversions(q1);
 
-                // Equality
                 Console.WriteLine("\n--- Equality Check ---");
                 bool equal = service.AreEqual(q1, q2);
                 Console.WriteLine("Are Equal? " + equal);
 
-                // Addition
                 Console.WriteLine("\n--- Addition ---");
                 QuantityLength sum = service.Add(q1, q2);
                 Console.WriteLine("Sum: " + sum);
 
-                // Subtraction
                 Console.WriteLine("\n--- Subtraction ---");
                 QuantityLength diff = service.Subtract(q1, q2);
                 Console.WriteLine("Difference: " + diff);
 
-                // Multiplication
                 Console.WriteLine("\n--- Multiplication ---");
                 Console.Write("Enter number to multiply: ");
                 double number = Convert.ToDouble(Console.ReadLine());
 
                 QuantityLength result = service.Multiply(q1, number);
                 Console.WriteLine("Result: " + result);
+
+                // -------- WEIGHT OPERATIONS (UC9) --------
+
+               
+                Console.WriteLine("------WEIGHT OPERATIONS------");
+               
+
+                QuantityWeight w1 = ReadWeight("First");
+                QuantityWeight w2 = ReadWeight("Second");
+
+                Console.WriteLine("\n--- First Weight in All Units ---");
+                ShowWeightConversions(w1);
+
+                Console.WriteLine("\n--- Equality Check ---");
+                Console.WriteLine("Are Equal? " + w1.Equals(w2));
+
+                Console.WriteLine("\n--- Addition ---");
+                QuantityWeight weightSum = w1.Add(w2);
+                Console.WriteLine("Sum: " + weightSum);
+
+                Console.WriteLine("\n--- Conversion Example ---");
+                Console.WriteLine("First weight in Grams: " + w1.ConvertTo(WeightUnit.GRAM));
             }
             catch (Exception ex)
             {
@@ -53,11 +71,11 @@ namespace QuantityMeasurementApp
         }
 
         /// <summary>
-        /// Method to read quantity from user
+        /// Method to read length quantity from user
         /// </summary>
         static QuantityLength ReadQuantity(string name)
         {
-            Console.WriteLine($"\nEnter {name} Value:");
+            Console.WriteLine($"\nEnter {name} Length Value:");
 
             Console.Write("Value: ");
             double value = Convert.ToDouble(Console.ReadLine());
@@ -88,7 +106,7 @@ namespace QuantityMeasurementApp
         }
 
         /// <summary>
-        /// Show value in all units
+        /// Show length value in all units
         /// </summary>
         static void ShowConversions(QuantityLength q)
         {
@@ -96,6 +114,50 @@ namespace QuantityMeasurementApp
             Console.WriteLine("Inches: " + q.ConvertTo(LengthUnit.INCHES));
             Console.WriteLine("Yards: " + q.ConvertTo(LengthUnit.YARDS));
             Console.WriteLine("Centimeters: " + q.ConvertTo(LengthUnit.CENTIMETERS));
+        }
+
+        // ---------------- WEIGHT METHODS ----------------
+
+        /// <summary>
+        /// Method to read weight from user
+        /// </summary>
+        static QuantityWeight ReadWeight(string name)
+        {
+            Console.WriteLine($"\nEnter {name} Weight Value:");
+
+            Console.Write("Value: ");
+            double value = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Select Unit:");
+            Console.WriteLine("1 - Kilogram");
+            Console.WriteLine("2 - Gram");
+            Console.WriteLine("3 - Pound");
+
+            Console.Write("Choice: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            WeightUnit unit;
+
+            if (choice == 1)
+                unit = WeightUnit.KILOGRAM;
+            else if (choice == 2)
+                unit = WeightUnit.GRAM;
+            else if (choice == 3)
+                unit = WeightUnit.POUND;
+            else
+                throw new ArgumentException("Invalid unit");
+
+            return new QuantityWeight(value, unit);
+        }
+
+        /// <summary>
+        /// Show weight value in all units
+        /// </summary>
+        static void ShowWeightConversions(QuantityWeight w)
+        {
+            Console.WriteLine("Kilogram: " + w.ConvertTo(WeightUnit.KILOGRAM));
+            Console.WriteLine("Gram: " + w.ConvertTo(WeightUnit.GRAM));
+            Console.WriteLine("Pound: " + w.ConvertTo(WeightUnit.POUND));
         }
     }
 }
