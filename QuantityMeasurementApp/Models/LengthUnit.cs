@@ -3,16 +3,9 @@ using System;
 namespace QuantityMeasurementApp.Models
 {
     /// <summary>
-    /// LengthUnit represents all supported length units.
-    /// 
-    /// This enum is responsible for:
-    /// 1. Storing conversion factors
-    /// 2. Converting values TO base unit (Feet)
-    /// 3. Converting values FROM base unit (Feet)
-    /// 
-    /// Base Unit = FEET
+    /// Enum for different length units
     /// </summary>
-    public enum LengthUnit
+    public enum LengthUnit : int
     {
         FEET,
         INCHES,
@@ -21,14 +14,11 @@ namespace QuantityMeasurementApp.Models
     }
 
     /// <summary>
-    /// Extension methods for LengthUnit.
-    /// These methods contain all unit conversion logic.
+    /// Helper methods for LengthUnit conversions
     /// </summary>
     public static class LengthUnitExtensions
     {
-        /// <summary>
-        /// Returns conversion factor of the unit relative to FEET.
-        /// </summary>
+        // Returns conversion factor for each unit
         public static double GetConversionFactor(this LengthUnit unit)
         {
             switch (unit)
@@ -50,29 +40,22 @@ namespace QuantityMeasurementApp.Models
             }
         }
 
-        /// <summary>
-        /// Convert value from current unit to BASE UNIT (Feet)
-        /// </summary>
+        // Converts given value to base unit (feet)
         public static double ConvertToBaseUnit(this LengthUnit unit, double value)
         {
             return value * unit.GetConversionFactor();
         }
 
-        /// <summary>
-        /// Convert value from BASE UNIT (Feet) to current unit
-        /// </summary>
+        // Converts base unit value back to selected unit
         public static double ConvertFromBaseUnit(this LengthUnit unit, double baseValue)
         {
             return baseValue / unit.GetConversionFactor();
         }
 
-        /// <summary>
-        /// Convert value from one unit to another unit
-        /// </summary>
-        public static double ConvertTo(this LengthUnit fromUnit, double value, LengthUnit toUnit)
+        // Returns unit name as text
+        public static string GetUnitName(this LengthUnit unit)
         {
-            double baseValue = fromUnit.ConvertToBaseUnit(value);
-            return toUnit.ConvertFromBaseUnit(baseValue);
+            return unit.ToString();
         }
     }
 }

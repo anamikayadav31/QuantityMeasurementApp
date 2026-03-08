@@ -1,79 +1,75 @@
 ﻿using System;
 using QuantityMeasurementApp.Models;
-using QuantityMeasurementApp.Services;
 
 namespace QuantityMeasurementApp
 {
     /// <summary>
-    /// Main program to test Quantity Measurement operations.
+    /// Main class of the application.
+    /// This program takes length and weight input from user
+    /// and performs conversion and addition using generic Quantity<T>.
     /// </summary>
     class Program
     {
+        /// <summary>
+        /// Entry point of the program
+        /// </summary>
         static void Main()
         {
             try
             {
-                var service = new QuantityMeasurementService();
-
                 // -------- LENGTH OPERATIONS --------
 
-                QuantityLength q1 = ReadQuantity("First");
-                QuantityLength q2 = ReadQuantity("Second");
+                // Read two length quantities from user
+                var q1 = ReadLength("First");
+                var q2 = ReadLength("Second");
 
                 Console.WriteLine("\n--- First Value in All Units ---");
-                ShowConversions(q1);
-
-                Console.WriteLine("\n--- Equality Check ---");
-                bool equal = service.AreEqual(q1, q2);
-                Console.WriteLine("Are Equal? " + equal);
+                ShowLengthConversions(q1);
 
                 Console.WriteLine("\n--- Addition ---");
-                QuantityLength sum = service.Add(q1, q2);
+
+                // Add two length quantities
+                var sum = q1.Add(
+                    q2,
+                    (u, v) => u.ConvertToBaseUnit(v),
+                    (u, v) => u.ConvertFromBaseUnit(v)
+                );
+
                 Console.WriteLine("Sum: " + sum);
 
-                Console.WriteLine("\n--- Subtraction ---");
-                QuantityLength diff = service.Subtract(q1, q2);
-                Console.WriteLine("Difference: " + diff);
+                // -------- WEIGHT OPERATIONS --------
 
-                Console.WriteLine("\n--- Multiplication ---");
-                Console.Write("Enter number to multiply: ");
-                double number = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("\n------WEIGHT OPERATIONS------");
 
-                QuantityLength result = service.Multiply(q1, number);
-                Console.WriteLine("Result: " + result);
-
-                // -------- WEIGHT OPERATIONS (UC9) --------
-
-               
-                Console.WriteLine("------WEIGHT OPERATIONS------");
-               
-
-                QuantityWeight w1 = ReadWeight("First");
-                QuantityWeight w2 = ReadWeight("Second");
+                // Read two weight quantities
+                var w1 = ReadWeight("First");
+                var w2 = ReadWeight("Second");
 
                 Console.WriteLine("\n--- First Weight in All Units ---");
                 ShowWeightConversions(w1);
 
-                Console.WriteLine("\n--- Equality Check ---");
-                Console.WriteLine("Are Equal? " + w1.Equals(w2));
-
                 Console.WriteLine("\n--- Addition ---");
-                QuantityWeight weightSum = w1.Add(w2);
-                Console.WriteLine("Sum: " + weightSum);
 
-                Console.WriteLine("\n--- Conversion Example ---");
-                Console.WriteLine("First weight in Grams: " + w1.ConvertTo(WeightUnit.GRAM));
+                // Add two weight quantities
+                var weightSum = w1.Add(
+                    w2,
+                    (u, v) => u.ConvertToBaseUnit(v),
+                    (u, v) => u.ConvertFromBaseUnit(v)
+                );
+
+                Console.WriteLine("Sum: " + weightSum);
             }
             catch (Exception ex)
             {
+                // Show error if invalid input occurs
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
 
         /// <summary>
-        /// Method to read length quantity from user
+        /// Method to read length value and unit from user
         /// </summary>
-        static QuantityLength ReadQuantity(string name)
+        static Quantity<LengthUnit> ReadLength(string name)
         {
             Console.WriteLine($"\nEnter {name} Length Value:");
 
@@ -91,37 +87,61 @@ namespace QuantityMeasurementApp
 
             LengthUnit unit;
 
+            // Using if-else instead of ternary operator
             if (choice == 1)
+            {
                 unit = LengthUnit.FEET;
+            }
             else if (choice == 2)
+            {
                 unit = LengthUnit.INCHES;
+            }
             else if (choice == 3)
+            {
                 unit = LengthUnit.YARDS;
+            }
             else if (choice == 4)
+            {
                 unit = LengthUnit.CENTIMETERS;
+            }
             else
+            {
                 throw new ArgumentException("Invalid unit");
+            }
 
-            return new QuantityLength(value, unit);
+            return new Quantity<LengthUnit>(value, unit);
         }
 
         /// <summary>
-        /// Show length value in all units
+        /// Displays the length value in all units
         /// </summary>
-        static void ShowConversions(QuantityLength q)
+        static void ShowLengthConversions(Quantity<LengthUnit> q)
         {
-            Console.WriteLine("Feet: " + q.ConvertTo(LengthUnit.FEET));
-            Console.WriteLine("Inches: " + q.ConvertTo(LengthUnit.INCHES));
-            Console.WriteLine("Yards: " + q.ConvertTo(LengthUnit.YARDS));
-            Console.WriteLine("Centimeters: " + q.ConvertTo(LengthUnit.CENTIMETERS));
+            Console.WriteLine("Feet: " +
+                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            LengthUnit.FEET));
+
+            Console.WriteLine("Inches: " +
+                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            LengthUnit.INCHES));
+
+            Console.WriteLine("Yards: " +
+                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            LengthUnit.YARDS));
+
+            Console.WriteLine("Centimeters: " +
+                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            LengthUnit.CENTIMETERS));
         }
 
-        // ---------------- WEIGHT METHODS ----------------
-
         /// <summary>
-        /// Method to read weight from user
+        /// Method to read weight value and unit from user
         /// </summary>
-        static QuantityWeight ReadWeight(string name)
+        static Quantity<WeightUnit> ReadWeight(string name)
         {
             Console.WriteLine($"\nEnter {name} Weight Value:");
 
@@ -138,26 +158,46 @@ namespace QuantityMeasurementApp
 
             WeightUnit unit;
 
+            // Using if-else for selecting unit
             if (choice == 1)
+            {
                 unit = WeightUnit.KILOGRAM;
+            }
             else if (choice == 2)
+            {
                 unit = WeightUnit.GRAM;
+            }
             else if (choice == 3)
+            {
                 unit = WeightUnit.POUND;
+            }
             else
+            {
                 throw new ArgumentException("Invalid unit");
+            }
 
-            return new QuantityWeight(value, unit);
+            return new Quantity<WeightUnit>(value, unit);
         }
 
         /// <summary>
-        /// Show weight value in all units
+        /// Displays the weight value in all units
         /// </summary>
-        static void ShowWeightConversions(QuantityWeight w)
+        static void ShowWeightConversions(Quantity<WeightUnit> w)
         {
-            Console.WriteLine("Kilogram: " + w.ConvertTo(WeightUnit.KILOGRAM));
-            Console.WriteLine("Gram: " + w.ConvertTo(WeightUnit.GRAM));
-            Console.WriteLine("Pound: " + w.ConvertTo(WeightUnit.POUND));
+            Console.WriteLine("Kilogram: " +
+                w.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            WeightUnit.KILOGRAM));
+
+            Console.WriteLine("Gram: " +
+                w.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            WeightUnit.GRAM));
+
+            Console.WriteLine("Pound: " +
+                w.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
+                            (u, v) => u.ConvertToBaseUnit(v),
+                            WeightUnit.POUND));
         }
     }
 }
