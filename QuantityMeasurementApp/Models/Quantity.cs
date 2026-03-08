@@ -32,8 +32,8 @@ namespace QuantityMeasurementApp.Models
         /// Converts the quantity to another unit
         /// </summary>
         public Quantity<T> ConvertTo(Func<T, double, double> convertFromBase,
-                                     Func<T, double, double> convertToBase,
-                                     T targetUnit)
+                             Func<T, double, double> convertToBase,
+                             T targetUnit)
         {
             // Convert current value to base unit
             double baseValue = convertToBase(Unit, Value);
@@ -41,8 +41,8 @@ namespace QuantityMeasurementApp.Models
             // Convert base unit to target unit
             double result = convertFromBase(targetUnit, baseValue);
 
-            // Return new quantity with converted value
-            return new Quantity<T>(Math.Round(result, 2), targetUnit);
+            // Return without rounding (important for tests)
+            return new Quantity<T>(result, targetUnit);
         }
 
         /// <summary>
