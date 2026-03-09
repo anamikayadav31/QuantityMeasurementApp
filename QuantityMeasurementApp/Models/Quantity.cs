@@ -3,82 +3,93 @@ using System;
 namespace QuantityMeasurementApp.Models
 {
     /// <summary>
-    /// Generic class that represents a quantity.
-    /// A quantity has a numeric value and a unit.
-    /// Example: 5 Feet, 2 Kilogram, 3 Liter
+    /// Generic class used to represent any measurable quantity.
+    /// Example: Length, Weight, Volume, Temperature.
+    /// Each quantity has a numeric value and a unit.
+    /// Example: 5 Feet, 2 Kilograms, 3 Litres.
     /// </summary>
     public class Quantity<T>
     {
-        // Stores the numeric value
+        // ---------------- PROPERTIES ----------------
+
+        /// <summary>
+        /// Stores the numeric value of the quantity
+        /// Example: 5 in "5 Feet"
+        /// </summary>
         public double Value { get; }
 
-        // Stores the unit type (Feet, Gram, Liter etc.)
+        /// <summary>
+        /// Stores the unit type of the quantity
+        /// Example: FEET, KILOGRAM, LITRE
+        /// </summary>
         public T Unit { get; }
+
+        // ---------------- CONSTRUCTOR ----------------
 
         /// <summary>
         /// Constructor used to create a Quantity object
+        /// It receives the value and the unit
         /// </summary>
         public Quantity(double value, T unit)
         {
-            // Check if unit is null
+            // Unit should not be null
             if (unit == null)
                 throw new ArgumentException("Unit cannot be null");
 
-            // Check if value is invalid
+            // Value must be a valid number
             if (double.IsNaN(value) || double.IsInfinity(value))
-                throw new ArgumentException("Invalid value");
+                throw new ArgumentException("Invalid numeric value");
 
-            // Assign values
             Value = value;
             Unit = unit;
         }
 
-        // ---------------- ENUM FOR OPERATIONS ----------------
+        // ---------------- ENUM FOR ARITHMETIC ----------------
 
         /// <summary>
-        /// Enum used to represent arithmetic operations
+        /// Enum used internally to represent arithmetic operations
         /// </summary>
         private enum ArithmeticOperation
         {
-            ADD,        // Addition
-            SUBTRACT,   // Subtraction
-            DIVIDE      // Division
+            ADD,
+            SUBTRACT,
+            DIVIDE
         }
 
         // ---------------- VALIDATION ----------------
 
         /// <summary>
-        /// Validates the other quantity before doing operations
+        /// Checks if the other quantity is valid before performing operations
         /// </summary>
         private void ValidateOperands(Quantity<T> other)
         {
-            // Check if other quantity is null
             if (other == null)
                 throw new ArgumentException("Other quantity cannot be null");
 
-            // Check if value is invalid
             if (double.IsNaN(other.Value) || double.IsInfinity(other.Value))
-                throw new ArgumentException("Invalid value");
+                throw new ArgumentException("Invalid numeric value in other quantity");
         }
 
         // ---------------- CENTRALIZED ARITHMETIC ----------------
 
         /// <summary>
-        /// Performs arithmetic operations after converting values to base unit
+        /// This method performs arithmetic operations.
+        /// First both quantities are converted to a base unit.
+        /// Then the required arithmetic operation is performed.
         /// </summary>
         private double PerformBaseArithmetic(
             Quantity<T> other,
             Func<T, double, double> convertToBase,
             ArithmeticOperation operation)
         {
-            // Validate the input quantity
+            // Validate input quantity
             ValidateOperands(other);
 
             // Convert both quantities to base unit
             double base1 = convertToBase(Unit, Value);
             double base2 = convertToBase(other.Unit, other.Value);
 
-            // Perform operation depending on enum type
+            // Perform arithmetic based on operation type
             switch (operation)
             {
                 case ArithmeticOperation.ADD:
@@ -91,33 +102,30 @@ namespace QuantityMeasurementApp.Models
 
                     // Prevent division by zero
                     if (base2 == 0)
-                        throw new ArithmeticException("Division by zero");
+                        throw new ArithmeticException("Division by zero is not allowed");
 
                     return base1 / base2;
 
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("Invalid arithmetic operation");
             }
         }
 
         // ---------------- ADD ----------------
 
         /// <summary>
-        /// Adds two quantities
-        /// Result is returned in the current unit
+        /// Adds two quantities.
+        /// Both quantities are converted to base unit before adding.
+        /// The result is converted back to the unit of the current object.
         /// </summary>
         public Quantity<T> Add(
             Quantity<T> other,
             Func<T, double, double> convertToBase,
             Func<T, double, double> convertFromBase)
         {
-            // Perform addition in base unit
-            double baseResult = PerformBaseArithmetic(
-                other,
-                convertToBase,
-                ArithmeticOperation.ADD);
+            double baseResult = PerformBaseArithmetic(other, convertToBase, ArithmeticOperation.ADD);
 
-            // Convert result back to current unit
+            // Convert result from base unit back to original unit
             double result = convertFromBase(Unit, baseResult);
 
             return new Quantity<T>(result, Unit);
@@ -126,20 +134,15 @@ namespace QuantityMeasurementApp.Models
         // ---------------- SUBTRACT ----------------
 
         /// <summary>
-        /// Subtracts another quantity from current quantity
+        /// Subtracts one quantity from another
         /// </summary>
         public Quantity<T> Subtract(
             Quantity<T> other,
             Func<T, double, double> convertToBase,
             Func<T, double, double> convertFromBase)
         {
-            // Perform subtraction in base unit
-            double baseResult = PerformBaseArithmetic(
-                other,
-                convertToBase,
-                ArithmeticOperation.SUBTRACT);
+            double baseResult = PerformBaseArithmetic(other, convertToBase, ArithmeticOperation.SUBTRACT);
 
-            // Convert result back to current unit
             double result = convertFromBase(Unit, baseResult);
 
             return new Quantity<T>(result, Unit);
@@ -148,25 +151,20 @@ namespace QuantityMeasurementApp.Models
         // ---------------- DIVIDE ----------------
 
         /// <summary>
-        /// Divides one quantity by another quantity
-        /// Returns a ratio (no unit)
-        /// Example: 4 meter / 2 meter = 2
+        /// Divides two quantities
+        /// Returns only the numeric ratio
         /// </summary>
         public double Divide(
             Quantity<T> other,
             Func<T, double, double> convertToBase)
         {
-            // Perform division in base unit
-            return PerformBaseArithmetic(
-                other,
-                convertToBase,
-                ArithmeticOperation.DIVIDE);
+            return PerformBaseArithmetic(other, convertToBase, ArithmeticOperation.DIVIDE);
         }
 
-        // ---------------- CONVERSION ----------------
+        // ---------------- CONVERT TO ANOTHER UNIT ----------------
 
         /// <summary>
-        /// Converts quantity from one unit to another unit
+        /// Converts the quantity into another unit
         /// Example: Feet → Inches
         /// </summary>
         public Quantity<T> ConvertTo(
@@ -177,17 +175,48 @@ namespace QuantityMeasurementApp.Models
             // Convert current value to base unit
             double baseValue = convertToBase(Unit, Value);
 
-            // Convert base unit value to target unit
+            // Convert base unit to target unit
             double result = convertFromBase(targetUnit, baseValue);
 
             return new Quantity<T>(result, targetUnit);
         }
 
-        // ---------------- STRING OUTPUT ----------------
+        // ---------------- EQUALITY CHECK ----------------
 
         /// <summary>
-        /// Returns quantity as readable text
-        /// Example: "5.25 Feet"
+        /// Checks if two quantities are equal
+        /// even if their units are different.
+        /// Example: 12 Inches == 1 Foot
+        /// </summary>
+        public bool Equals(
+            Quantity<T> other,
+            Func<T, double, double> convertToBase)
+        {
+            if (other == null) return false;
+
+            double base1 = convertToBase(Unit, Value);
+            double base2 = convertToBase(other.Unit, other.Value);
+
+            // Small tolerance to handle floating point precision
+            return Math.Abs(base1 - base2) < 0.0001;
+        }
+
+        // ---------------- TEMPERATURE SAFETY ----------------
+
+        /// <summary>
+        /// Prevent arithmetic operations for Temperature
+        /// </summary>
+        public void ValidateArithmeticSupported(string operation)
+        {
+            if (typeof(T) == typeof(TemperatureUnit))
+                throw new NotSupportedException($"Temperature does not support arithmetic like {operation}");
+        }
+
+        // ---------------- TO STRING ----------------
+
+        /// <summary>
+        /// Used to display quantity in readable format
+        /// Example: 5.000 FEET
         /// </summary>
         public override string ToString()
         {

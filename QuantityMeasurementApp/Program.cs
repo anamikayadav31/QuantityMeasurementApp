@@ -1,314 +1,226 @@
 ﻿using System;
 using QuantityMeasurementApp.Models;
+using QuantityMeasurementApp.Services;
 
 namespace QuantityMeasurementApp
 {
+    // Main class of the application
     class Program
     {
+        // Entry point of the console application
         static void Main()
         {
+            // Creating object of service class which performs operations
+            var service = new QuantityMeasurementService();
+
             try
             {
-                // ================= LENGTH OPERATIONS =================
-                // Read two length quantities from user
+                Console.WriteLine("==== Welcome to Quantity Measurement App ====\n");
+
+                // ================= LENGTH =================
+                // Section to perform length related operations
+                Console.WriteLine(">>> LENGTH OPERATIONS <<<");
+
+                // Reading two length values from the user
                 var q1 = ReadLength("First");
                 var q2 = ReadLength("Second");
 
-                // Show first value converted into all length units
-                Console.WriteLine("\n--- First Value in All Units ---");
+                // Showing first length value in all available units
+                Console.WriteLine("\n-- First Length in All Units --");
                 ShowLengthConversions(q1);
 
-                // ---------- Addition ----------
-                Console.WriteLine("\n--- Addition ---");
+                // Performing arithmetic operations
+                var sumLength = service.Add(q1, q2, LengthUnit.FEET);
+                var diffLength = service.Subtract(q1, q2, LengthUnit.FEET);
+                double divLength = service.Divide(q1, q2);
 
-                // Add two length quantities
-                var sum = q1.Add(
-                    q2,
-                    (u, v) => u.ConvertToBaseUnit(v),     // convert unit to base unit
-                    (u, v) => u.ConvertFromBaseUnit(v)   // convert base unit back to original unit
-                );
+                // Displaying results
+                Console.WriteLine("\n-- Length Results --");
+                Console.WriteLine($"Sum: {sumLength.Value:F3} {sumLength.Unit}");
+                Console.WriteLine($"Difference: {diffLength.Value:F3} {diffLength.Unit}");
+                Console.WriteLine($"Division Result: {divLength:F3}");
 
-                Console.WriteLine("Sum: " + sum);
+                Console.WriteLine("\n--------------------------------------------");
 
-                // ---------- Subtraction ----------
-                Console.WriteLine("\n--- Subtraction ---");
+                // ================= WEIGHT =================
+                // Section to perform weight related operations
+                Console.WriteLine(">>> WEIGHT OPERATIONS <<<");
 
-                // Subtract second length from first length
-                var difference = q1.Subtract(
-                    q2,
-                    (u, v) => u.ConvertToBaseUnit(v),
-                    (u, v) => u.ConvertFromBaseUnit(v)
-                );
-
-                Console.WriteLine("Difference: " + difference);
-
-                // ---------- Division ----------
-                Console.WriteLine("\n--- Division ---");
-
-                // Divide first length by second length
-                double ratio = q1.Divide(
-                    q2,
-                    (u, v) => u.ConvertToBaseUnit(v)
-                );
-
-                Console.WriteLine("Division Result: " + ratio);
-
-
-                // ================= WEIGHT OPERATIONS =================
-                Console.WriteLine("\n------ WEIGHT OPERATIONS ------");
-
-                // Read two weight values
+                // Reading two weight values from the user
                 var w1 = ReadWeight("First");
                 var w2 = ReadWeight("Second");
 
-                // Show conversions for first weight
-                Console.WriteLine("\n--- First Weight in All Units ---");
+                // Showing first weight value in all units
+                Console.WriteLine("\n-- First Weight in All Units --");
                 ShowWeightConversions(w1);
 
-                // ---------- Addition ----------
-                Console.WriteLine("\n--- Addition ---");
+                // Performing arithmetic operations
+                var sumWeight = service.Add(w1, w2, WeightUnit.KILOGRAM);
+                var diffWeight = service.Subtract(w1, w2, WeightUnit.KILOGRAM);
+                double divWeight = service.Divide(w1, w2);
 
-                var weightSum = w1.Add(
-                    w2,
-                    (u, v) => u.ConvertToBaseUnit(v),
-                    (u, v) => u.ConvertFromBaseUnit(v)
-                );
+                // Displaying results
+                Console.WriteLine("\n-- Weight Results --");
+                Console.WriteLine($"Sum: {sumWeight.Value:F3} {sumWeight.Unit}");
+                Console.WriteLine($"Difference: {diffWeight.Value:F3} {diffWeight.Unit}");
+                Console.WriteLine($"Division Result: {divWeight:F3}");
 
-                Console.WriteLine("Sum: " + weightSum);
+                Console.WriteLine("\n--------------------------------------------");
 
-                // ---------- Subtraction ----------
-                Console.WriteLine("\n--- Subtraction ---");
+                // ================= VOLUME =================
+                // Section to perform volume related operations
+                Console.WriteLine(">>> VOLUME OPERATIONS <<<");
 
-                var weightDifference = w1.Subtract(
-                    w2,
-                    (u, v) => u.ConvertToBaseUnit(v),
-                    (u, v) => u.ConvertFromBaseUnit(v)
-                );
-
-                Console.WriteLine("Difference: " + weightDifference);
-
-                // ---------- Division ----------
-                Console.WriteLine("\n--- Division ---");
-
-                double weightRatio = w1.Divide(
-                    w2,
-                    (u, v) => u.ConvertToBaseUnit(v)
-                );
-
-                Console.WriteLine("Division Result: " + weightRatio);
-
-
-                // ================= VOLUME OPERATIONS =================
-                Console.WriteLine("\n------ VOLUME OPERATIONS ------");
-
-                // Read two volume values
+                // Reading two volume values from the user
                 var v1 = ReadVolume("First");
                 var v2 = ReadVolume("Second");
 
-                // Show conversions for first volume
-                Console.WriteLine("\n--- First Volume in All Units ---");
+                // Showing first volume value in all units
+                Console.WriteLine("\n-- First Volume in All Units --");
                 ShowVolumeConversions(v1);
 
-                // ---------- Addition ----------
-                Console.WriteLine("\n--- Addition ---");
+                // Performing arithmetic operations
+                var sumVolume = service.Add(v1, v2, VolumeUnit.LITRE);
+                var diffVolume = service.Subtract(v1, v2, VolumeUnit.LITRE);
+                double divVolume = service.Divide(v1, v2);
 
-                var volumeSum = v1.Add(
-                    v2,
-                    (u, val) => u.ConvertToBaseUnit(val),
-                    (u, val) => u.ConvertFromBaseUnit(val)
-                );
+                // Displaying results
+                Console.WriteLine("\n-- Volume Results --");
+                Console.WriteLine($"Sum: {sumVolume.Value:F3} {sumVolume.Unit}");
+                Console.WriteLine($"Difference: {diffVolume.Value:F3} {diffVolume.Unit}");
+                Console.WriteLine($"Division Result: {divVolume:F3}");
 
-                Console.WriteLine("Sum: " + volumeSum);
-
-                // ---------- Subtraction ----------
-                Console.WriteLine("\n--- Subtraction ---");
-
-                var volumeDifference = v1.Subtract(
-                    v2,
-                    (u, val) => u.ConvertToBaseUnit(val),
-                    (u, val) => u.ConvertFromBaseUnit(val)
-                );
-
-                Console.WriteLine("Difference: " + volumeDifference);
-
-                // ---------- Division ----------
-                Console.WriteLine("\n--- Division ---");
-
-                double volumeRatio = v1.Divide(
-                    v2,
-                    (u, val) => u.ConvertToBaseUnit(val)
-                );
-
-                Console.WriteLine("Division Result: " + volumeRatio);
+                Console.WriteLine("\n==== Thank You for Using Quantity Measurement App! ====");
             }
+
+            // Catch block handles runtime errors
             catch (Exception ex)
             {
-                // If any error occurs, print the message
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine($"\nError: {ex.Message}");
             }
         }
 
-        // ================= LENGTH METHODS =================
+        // ---------------- LENGTH ----------------
 
-        // Reads a length value and unit from the user
+        // Method to read length value and unit from the user
         static Quantity<LengthUnit> ReadLength(string name)
         {
-            Console.WriteLine($"\nEnter {name} Length Value:");
+            Console.WriteLine($"\nEnter {name} Length:");
 
-            Console.Write("Value: ");
-            double value = Convert.ToDouble(Console.ReadLine());
+            // Read numeric value
+            double value = ReadDouble("Value");
 
-            Console.WriteLine("Select Unit:");
-            Console.WriteLine("1 - Feet");
-            Console.WriteLine("2 - Inches");
-            Console.WriteLine("3 - Yards");
-            Console.WriteLine("4 - Centimeters");
+            // Ask user to choose unit
+            LengthUnit unit = ReadChoice<LengthUnit>(
+                new string[] { "Feet", "Inches", "Yards", "Centimeters" });
 
-            Console.Write("Choice: ");
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            LengthUnit unit;
-
-            // Determine which unit user selected
-            if (choice == 1)
-                unit = LengthUnit.FEET;
-            else if (choice == 2)
-                unit = LengthUnit.INCHES;
-            else if (choice == 3)
-                unit = LengthUnit.YARDS;
-            else if (choice == 4)
-                unit = LengthUnit.CENTIMETERS;
-            else
-                throw new ArgumentException("Invalid unit");
-
-            // Create and return quantity object
+            // Create and return Quantity object
             return new Quantity<LengthUnit>(value, unit);
         }
 
-        // Shows conversions of a length into all supported units
+        // Method to display length value converted into all units
         static void ShowLengthConversions(Quantity<LengthUnit> q)
         {
-            Console.WriteLine("Feet: " +
-                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            LengthUnit.FEET));
-
-            Console.WriteLine("Inches: " +
-                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            LengthUnit.INCHES));
-
-            Console.WriteLine("Yards: " +
-                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            LengthUnit.YARDS));
-
-            Console.WriteLine("Centimeters: " +
-                q.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            LengthUnit.CENTIMETERS));
+            // Loop through all possible length units
+            foreach (LengthUnit u in Enum.GetValues(typeof(LengthUnit)))
+            {
+                Console.WriteLine($"{u}: {q.ConvertTo((unit, val) =>
+                unit.ConvertFromBaseUnit(val), (unit, val) =>
+                unit.ConvertToBaseUnit(val), u).Value:F3}");
+            }
         }
 
-        // ================= WEIGHT METHODS =================
+        // ---------------- WEIGHT ----------------
 
-        // Reads weight value and unit from user
+        // Method to read weight value and unit
         static Quantity<WeightUnit> ReadWeight(string name)
         {
-            Console.WriteLine($"\nEnter {name} Weight Value:");
+            Console.WriteLine($"\nEnter {name} Weight:");
 
-            Console.Write("Value: ");
-            double value = Convert.ToDouble(Console.ReadLine());
+            double value = ReadDouble("Value");
 
-            Console.WriteLine("Select Unit:");
-            Console.WriteLine("1 - Kilogram");
-            Console.WriteLine("2 - Gram");
-            Console.WriteLine("3 - Pound");
-
-            Console.Write("Choice: ");
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            WeightUnit unit;
-
-            if (choice == 1)
-                unit = WeightUnit.KILOGRAM;
-            else if (choice == 2)
-                unit = WeightUnit.GRAM;
-            else if (choice == 3)
-                unit = WeightUnit.POUND;
-            else
-                throw new ArgumentException("Invalid unit");
+            // User chooses weight unit
+            WeightUnit unit = ReadChoice<WeightUnit>(
+                new string[] { "Kilogram", "Gram", "Pound" });
 
             return new Quantity<WeightUnit>(value, unit);
         }
 
-        // Shows conversions for weight
-        static void ShowWeightConversions(Quantity<WeightUnit> w)
+        // Convert weight into all units
+        static void ShowWeightConversions(Quantity<WeightUnit> q)
         {
-            Console.WriteLine("Kilogram: " +
-                w.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            WeightUnit.KILOGRAM));
-
-            Console.WriteLine("Gram: " +
-                w.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            WeightUnit.GRAM));
-
-            Console.WriteLine("Pound: " +
-                w.ConvertTo((u, v) => u.ConvertFromBaseUnit(v),
-                            (u, v) => u.ConvertToBaseUnit(v),
-                            WeightUnit.POUND));
+            foreach (WeightUnit u in Enum.GetValues(typeof(WeightUnit)))
+            {
+                Console.WriteLine($"{u}: {q.ConvertTo((unit, val) =>
+                unit.ConvertFromBaseUnit(val), (unit, val) =>
+                unit.ConvertToBaseUnit(val), u).Value:F3}");
+            }
         }
 
-        // ================= VOLUME METHODS =================
+        // ---------------- VOLUME ----------------
 
-        // Reads volume value and unit from user
+        // Method to read volume value and unit
         static Quantity<VolumeUnit> ReadVolume(string name)
         {
-            Console.WriteLine($"\nEnter {name} Volume Value:");
+            Console.WriteLine($"\nEnter {name} Volume:");
 
-            Console.Write("Value: ");
-            double value = Convert.ToDouble(Console.ReadLine());
+            double value = ReadDouble("Value");
 
-            Console.WriteLine("Select Unit:");
-            Console.WriteLine("1 - Litre");
-            Console.WriteLine("2 - Millilitre");
-            Console.WriteLine("3 - Gallon");
-
-            Console.Write("Choice: ");
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            VolumeUnit unit;
-
-            if (choice == 1)
-                unit = VolumeUnit.LITRE;
-            else if (choice == 2)
-                unit = VolumeUnit.MILLILITRE;
-            else if (choice == 3)
-                unit = VolumeUnit.GALLON;
-            else
-                throw new ArgumentException("Invalid unit");
+            // User chooses volume unit
+            VolumeUnit unit = ReadChoice<VolumeUnit>(
+                new string[] { "Litre", "Millilitre", "Gallon" });
 
             return new Quantity<VolumeUnit>(value, unit);
         }
 
-        // Shows conversions for volume
-        static void ShowVolumeConversions(Quantity<VolumeUnit> v)
+        // Convert volume into all units
+        static void ShowVolumeConversions(Quantity<VolumeUnit> q)
         {
-            Console.WriteLine("Litre: " +
-                v.ConvertTo((u, val) => u.ConvertFromBaseUnit(val),
-                            (u, val) => u.ConvertToBaseUnit(val),
-                            VolumeUnit.LITRE));
+            foreach (VolumeUnit u in Enum.GetValues(typeof(VolumeUnit)))
+            {
+                Console.WriteLine($"{u}: {q.ConvertTo((unit, val) =>
+                unit.ConvertFromBaseUnit(val), (unit, val) =>
+                unit.ConvertToBaseUnit(val), u).Value:F3}");
+            }
+        }
 
-            Console.WriteLine("Millilitre: " +
-                v.ConvertTo((u, val) => u.ConvertFromBaseUnit(val),
-                            (u, val) => u.ConvertToBaseUnit(val),
-                            VolumeUnit.MILLILITRE));
+        // ---------------- HELPER METHODS ----------------
 
-            Console.WriteLine("Gallon: " +
-                v.ConvertTo((u, val) => u.ConvertFromBaseUnit(val),
-                            (u, val) => u.ConvertToBaseUnit(val),
-                            VolumeUnit.GALLON));
+        // Method to safely read a double number from the user
+        static double ReadDouble(string prompt)
+        {
+            while (true)
+            {
+                Console.Write($"{prompt}: ");
+
+                // Try to convert user input into double
+                if (double.TryParse(Console.ReadLine(), out double value))
+                    return value;
+
+                // If invalid input
+                Console.WriteLine("Invalid input! Please enter a number.");
+            }
+        }
+
+        // Generic method to allow user to choose from options
+        static T ReadChoice<T>(string[] options) where T : Enum
+        {
+            // Display all options
+            for (int i = 0; i < options.Length; i++)
+                Console.WriteLine($"{i + 1} - {options[i]}");
+
+            while (true)
+            {
+                Console.Write("Choice: ");
+
+                // Validate user choice
+                if (int.TryParse(Console.ReadLine(), out int choice) &&
+                    choice >= 1 && choice <= options.Length)
+
+                    return (T)Enum.GetValues(typeof(T)).GetValue(choice - 1);
+
+                Console.WriteLine("Invalid choice! Try again.");
+            }
         }
     }
 }

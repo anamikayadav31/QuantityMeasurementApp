@@ -1,20 +1,41 @@
+using System;
+
 namespace QuantityMeasurementApp.Models
 {
     /// <summary>
-    /// Interface for measurement units like Length and Weight
+    /// Functional interface to indicate whether arithmetic is supported
+    /// </summary>
+    public delegate bool SupportsArithmetic();
+
+    /// <summary>
+    /// Interface for measurable units
     /// </summary>
     public interface IMeasurable
     {
-        // Returns conversion factor of the unit
-        double GetConversionFactor();
-
-        // Converts a value to base unit
+        // Convert value to base unit
         double ConvertToBaseUnit(double value);
 
-        // Converts base unit value to this unit
-        double ConvertFromBaseUnit(double baseValue);
+        // Convert value from base unit
+        double ConvertFromBaseUnit(double value);
 
-        // Returns the unit name
-        string GetUnitName();
+        // Default lambda → arithmetic supported
+        SupportsArithmetic supportsArithmetic => () => true;
+
+        /// <summary>
+        /// Check if arithmetic is supported
+        /// </summary>
+        bool SupportsArithmeticOperation()
+        {
+            return supportsArithmetic();
+        }
+
+        /// <summary>
+        /// Validate operation support
+        /// Default: allow all
+        /// </summary>
+        void ValidateOperationSupport(string operation)
+        {
+            // default does nothing
+        }
     }
 }

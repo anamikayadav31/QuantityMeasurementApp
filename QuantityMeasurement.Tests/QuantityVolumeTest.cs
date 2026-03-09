@@ -1,31 +1,25 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QuantityMeasurementApp.Models;
+using QuantityMeasurementApp.Services;
 
 namespace QuantityMeasurementTest
 {
     /// <summary>
-    /// Test class for Quantity<T> using VolumeUnit.
+    /// Unit tests for VolumeUnit operations in QuantityMeasurementService.
     /// 
-    /// This class verifies:
-    /// 1. Equality of volume quantities
-    /// 2. Conversion between different volume units
-    /// 3. Addition of quantities with same or different units
-    /// 4. Correct conversion factors defined in VolumeUnit enum
-    /// 
-    /// The base unit used internally for volume is LITRE.
+    /// Covers:
+    /// 1. Equality checks for same values (litres vs litres, litres vs millilitres)
+    /// 2. Addition of volumes across units (litres + millilitres, litres + gallons)
     /// </summary>
     [TestClass]
     public class QuantityVolumeTest
     {
-
-        // -------------------------------------------------------
-        // EQUALITY TESTS
-        // -------------------------------------------------------
+        // Service instance used for all tests
+        private QuantityMeasurementService service = new QuantityMeasurementService();
 
         /// <summary>
-        /// Verify that two quantities with the same value and unit
-        /// are equal after conversion to the base unit.
-        /// Example: 1 litre == 1 litre
+        /// Test equality for same value in litres
         /// </summary>
         [TestMethod]
         public void Equal_WhenSameLitreValue()
@@ -33,7 +27,6 @@ namespace QuantityMeasurementTest
             var v1 = new Quantity<VolumeUnit>(1, VolumeUnit.LITRE);
             var v2 = new Quantity<VolumeUnit>(1, VolumeUnit.LITRE);
 
-            // Convert both values to base unit (litre)
             double base1 = v1.Unit.ConvertToBaseUnit(v1.Value);
             double base2 = v2.Unit.ConvertToBaseUnit(v2.Value);
 
@@ -41,9 +34,7 @@ namespace QuantityMeasurementTest
         }
 
         /// <summary>
-        /// Verify equality when different units represent
-        /// the same volume.
-        /// Example: 1 litre == 1000 millilitres
+        /// Test equality between litres and millilitres (1 L = 1000 mL)
         /// </summary>
         [TestMethod]
         public void Equal_WhenLitreAndMillilitre()
@@ -57,53 +48,8 @@ namespace QuantityMeasurementTest
             Assert.AreEqual(base1, base2, 0.0001);
         }
 
-        // -------------------------------------------------------
-        // CONVERSION TESTS
-        // -------------------------------------------------------
-
         /// <summary>
-        /// Verify conversion from litre to millilitre.
-        /// Example: 1 litre = 1000 millilitres
-        /// </summary>
-        [TestMethod]
-        public void Convert_LitreToMillilitre()
-        {
-            var litre = new Quantity<VolumeUnit>(1, VolumeUnit.LITRE);
-
-            var result = litre.ConvertTo(
-                (u, v) => u.ConvertFromBaseUnit(v),
-                (u, v) => u.ConvertToBaseUnit(v),
-                VolumeUnit.MILLILITRE
-            );
-
-            Assert.AreEqual(1000, result.Value, 0.0001);
-        }
-
-        /// <summary>
-        /// Verify conversion from gallon to litre.
-        /// Example: 1 gallon = 3.78541 litres
-        /// </summary>
-        [TestMethod]
-        public void Convert_GallonToLitre()
-        {
-            var gallon = new Quantity<VolumeUnit>(1, VolumeUnit.GALLON);
-
-            var result = gallon.ConvertTo(
-                (u, v) => u.ConvertFromBaseUnit(v),
-                (u, v) => u.ConvertToBaseUnit(v),
-                VolumeUnit.LITRE
-            );
-
-            Assert.AreEqual(3.78541, result.Value, 0.0001);
-        }
-
-        // -------------------------------------------------------
-        // ADDITION TESTS
-        // -------------------------------------------------------
-
-        /// <summary>
-        /// Verify addition of litre and millilitre.
-        /// Example: 1 litre + 1000 millilitres = 2 litres
+        /// Test addition of litres and millilitres
         /// </summary>
         [TestMethod]
         public void Add_LitreAndMillilitre()
@@ -121,8 +67,7 @@ namespace QuantityMeasurementTest
         }
 
         /// <summary>
-        /// Verify addition of litre and gallon.
-        /// Example: 1 litre + 1 gallon = 4.78541 litres
+        /// Test addition of litres and gallons (1 gallon ≈ 3.78541 L)
         /// </summary>
         [TestMethod]
         public void Add_LitreAndGallon()
@@ -137,43 +82,6 @@ namespace QuantityMeasurementTest
             );
 
             Assert.AreEqual(4.78541, result.Value, 0.0001);
-        }
-
-        // -------------------------------------------------------
-        // ENUM CONVERSION FACTOR TESTS
-        // -------------------------------------------------------
-
-        /// <summary>
-        /// Verify conversion factor for LITRE unit.
-        /// </summary>
-        [TestMethod]
-        public void VolumeUnit_LitreFactor()
-        {
-            double factor = VolumeUnit.LITRE.GetConversionFactor();
-
-            Assert.AreEqual(1.0, factor, 0.0001);
-        }
-
-        /// <summary>
-        /// Verify conversion factor for MILLILITRE unit.
-        /// </summary>
-        [TestMethod]
-        public void VolumeUnit_MillilitreFactor()
-        {
-            double factor = VolumeUnit.MILLILITRE.GetConversionFactor();
-
-            Assert.AreEqual(0.001, factor, 0.0001);
-        }
-
-        /// <summary>
-        /// Verify conversion factor for GALLON unit.
-        /// </summary>
-        [TestMethod]
-        public void VolumeUnit_GallonFactor()
-        {
-            double factor = VolumeUnit.GALLON.GetConversionFactor();
-
-            Assert.AreEqual(3.78541, factor, 0.0001);
         }
     }
 }
