@@ -11,7 +11,9 @@
           "MSTest.TestAdapter": "4.1.0",
           "MSTest.TestFramework": "4.1.0",
           "Microsoft.NET.Test.Sdk": "18.0.1",
-          "QuantityMeasurementApp": "1.0.0",
+          "QuantityMeasurementApp.BussinessLayer": "1.0.0",
+          "QuantityMeasurementApp.ModelLayer": "1.0.0",
+          "QuantityMeasurementApp.RepoLayer": "1.0.0",
           "MSTest.TestFramework.Extensions": "4.1.0.0"
         },
         "runtime": {
@@ -567,9 +569,32 @@
           }
         }
       },
-      "QuantityMeasurementApp/1.0.0": {
+      "QuantityMeasurementApp.BussinessLayer/1.0.0": {
+        "dependencies": {
+          "QuantityMeasurementApp.ModelLayer": "1.0.0",
+          "QuantityMeasurementApp.RepoLayer": "1.0.0"
+        },
         "runtime": {
-          "QuantityMeasurementApp.dll": {
+          "QuantityMeasurementApp.BussinessLayer.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "QuantityMeasurementApp.ModelLayer/1.0.0": {
+        "runtime": {
+          "QuantityMeasurementApp.ModelLayer.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "QuantityMeasurementApp.RepoLayer/1.0.0": {
+        "dependencies": {
+          "QuantityMeasurementApp.ModelLayer": "1.0.0"
+        },
+        "runtime": {
+          "QuantityMeasurementApp.RepoLayer.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -682,7 +707,17 @@
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
-    "QuantityMeasurementApp/1.0.0": {
+    "QuantityMeasurementApp.BussinessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuantityMeasurementApp.ModelLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuantityMeasurementApp.RepoLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

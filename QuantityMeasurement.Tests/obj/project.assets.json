@@ -651,14 +651,41 @@
           }
         }
       },
-      "QuantityMeasurementApp/1.0.0": {
+      "QuantityMeasurementApp.BussinessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "QuantityMeasurementApp.ModelLayer": "1.0.0",
+          "QuantityMeasurementApp.RepoLayer": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/QuantityMeasurementApp.BussinessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuantityMeasurementApp.BussinessLayer.dll": {}
+        }
+      },
+      "QuantityMeasurementApp.ModelLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/QuantityMeasurementApp.dll": {}
+          "bin/placeholder/QuantityMeasurementApp.ModelLayer.dll": {}
         },
         "runtime": {
-          "bin/placeholder/QuantityMeasurementApp.dll": {}
+          "bin/placeholder/QuantityMeasurementApp.ModelLayer.dll": {}
+        }
+      },
+      "QuantityMeasurementApp.RepoLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "QuantityMeasurementApp.ModelLayer": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/QuantityMeasurementApp.RepoLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QuantityMeasurementApp.RepoLayer.dll": {}
         }
       }
     }
@@ -1543,10 +1570,20 @@
         "packageIcon.png"
       ]
     },
-    "QuantityMeasurementApp/1.0.0": {
+    "QuantityMeasurementApp.BussinessLayer/1.0.0": {
       "type": "project",
-      "path": "../QuantityMeasurementApp/QuantityMeasurementApp.csproj",
-      "msbuildProject": "../QuantityMeasurementApp/QuantityMeasurementApp.csproj"
+      "path": "../QuantityMeasurementApp.BussinessLayer/QuantityMeasurementApp.BussinessLayer.csproj",
+      "msbuildProject": "../QuantityMeasurementApp.BussinessLayer/QuantityMeasurementApp.BussinessLayer.csproj"
+    },
+    "QuantityMeasurementApp.ModelLayer/1.0.0": {
+      "type": "project",
+      "path": "../QuantityMeasurementApp.ModelLayer/QuantityMeasurementApp.ModelLayer.csproj",
+      "msbuildProject": "../QuantityMeasurementApp.ModelLayer/QuantityMeasurementApp.ModelLayer.csproj"
+    },
+    "QuantityMeasurementApp.RepoLayer/1.0.0": {
+      "type": "project",
+      "path": "../QuantityMeasurementApp.RepoLayer/QuantityMeasurementApp.RepoLayer.csproj",
+      "msbuildProject": "../QuantityMeasurementApp.RepoLayer/QuantityMeasurementApp.RepoLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1554,7 +1591,9 @@
       "MSTest.TestAdapter >= 4.1.0",
       "MSTest.TestFramework >= 4.1.0",
       "Microsoft.NET.Test.Sdk >= 18.0.1",
-      "QuantityMeasurementApp >= 1.0.0"
+      "QuantityMeasurementApp.BussinessLayer >= 1.0.0",
+      "QuantityMeasurementApp.ModelLayer >= 1.0.0",
+      "QuantityMeasurementApp.RepoLayer >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1590,8 +1629,14 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj": {
-              "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp\\QuantityMeasurementApp.csproj"
+            "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.BussinessLayer\\QuantityMeasurementApp.BussinessLayer.csproj": {
+              "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.BussinessLayer\\QuantityMeasurementApp.BussinessLayer.csproj"
+            },
+            "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.ModelLayer\\QuantityMeasurementApp.ModelLayer.csproj": {
+              "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.ModelLayer\\QuantityMeasurementApp.ModelLayer.csproj"
+            },
+            "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.RepoLayer\\QuantityMeasurementApp.RepoLayer.csproj": {
+              "projectPath": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.RepoLayer\\QuantityMeasurementApp.RepoLayer.csproj"
             }
           }
         }
