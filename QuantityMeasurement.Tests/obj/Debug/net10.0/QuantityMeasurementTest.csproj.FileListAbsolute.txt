@@ -175,3 +175,8 @@ D:\QuantityMeasurementApp\QuantityMeasurement.Tests\obj\Debug\net10.0\refint\Qua
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\obj\Debug\net10.0\QuantityMeasurementTest.pdb
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\obj\Debug\net10.0\QuantityMeasurementTest.genruntimeconfig.cache
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\obj\Debug\net10.0\ref\QuantityMeasurementTest.dll
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.Console.deps.json
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.Console.runtimeconfig.json
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.Console.exe
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.Console.dll
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.Console.pdb

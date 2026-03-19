@@ -40,6 +40,7 @@
     <ProjectReference Include="..\QuantityMeasurementApp.ModelLayer\QuantityMeasurementApp.ModelLayer.csproj" />
     <ProjectReference Include="..\QuantityMeasurementApp.BussinessLayer\QuantityMeasurementApp.BussinessLayer.csproj" />
     <ProjectReference Include="..\QuantityMeasurementApp.RepoLayer\QuantityMeasurementApp.RepoLayer.csproj" />
+      <ProjectReference Include="..\QuantityMeasurementApp.Console\QuantityMeasurementApp.Console.csproj" />
   </ItemGroup>
 
 </Project>

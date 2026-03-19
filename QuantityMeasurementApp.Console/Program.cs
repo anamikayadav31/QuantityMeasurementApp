@@ -1,75 +1,57 @@
+﻿using Microsoft.Extensions.Configuration;
 using QuantityMeasurementApp.BussinessLayer.Services;
 using QuantityMeasurementApp.BussinessLayer.Interfaces;
 using QuantityMeasurementApp.RepoLayer.Interfaces;
 using QuantityMeasurementApp.RepoLayer.Implementations;
+using QuantityMeasurementApp.RepoLayer.Config;
 using QuantityMeasurementApp.ConsoleApp.Menu;
 using QuantityMeasurementApp.ConsoleApp.Interfaces;
 using QuantityMeasurementApp.ConsoleApp.Controllers;
 
 namespace QuantityMeasurementApp.ConsoleApp
 {
-    /// <summary>
-    /// Application entry point for the Quantity Measurement System (UC15).
-    ///
-    /// Responsibilities:
-    ///   - Bootstrap and wire all layers via Factory + Dependency Injection
-    ///   - Implements Factory pattern to create service and controller instances
-    ///   - Implements Facade pattern: hides wiring complexity behind IMenu.Show()
-    ///   - Delegates all logic to the controller via the menu
-    ///
-    /// Design patterns used:
-    ///   - Factory:    CreateService(), CreateController() factory methods
-    ///   - Singleton:  Repository accessed via QuantityMeasurementCacheRepository.Instance
-    ///   - Facade:     IMenu.Show() is the simplified entry point
-    ///   - DI:         All dependencies injected via constructors
-    /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
-            // -- Factory: create repository (Singleton) -----------------------
-            IQuantityMeasurementRepository repository = CreateRepository();
+            // 1. Load appsettings.json
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                .Build();
 
-            // -- Factory: create service with repo dependency -----------------
-            IQuantityMeasurementService service = CreateService();
+            // 2. Read settings (defaults: use database, file = QuantityMeasurementDB.db)
+            bool useDatabase  = bool.Parse(config["Repository:UseDatabase"] ?? "false");
+            string dbPath     = config["Repository:DatabasePath"] ?? "QuantityMeasurementDB.db";
 
-            // -- Factory: create controller with service + repo ---------------
-            QuantityMeasurementController controller = CreateController(service, repository);
+            // 3. Create the repository based on config
+            IQuantityMeasurementRepository repository = CreateRepository(useDatabase, dbPath);
 
-            // -- Facade: start the menu loop ----------------------------------
-            IMenu menu = new QuantityMeasurementApp.ConsoleApp.Menu.Menu(controller);
+            Console.WriteLine($"[Startup] Repository: {(useDatabase ? $"SQLite → {dbPath}" : "In-memory cache")}");
+
+            // 4. Wire up the rest (unchanged from UC15)
+            IQuantityMeasurementService      service    = new QuantityMeasurementServiceImpl();
+            QuantityMeasurementController    controller = new(service, repository);
+            IMenu                            menu       = new Menu.Menu(controller);
+
             menu.Show();
         }
 
         /// <summary>
-        /// Factory method for repository creation.
-        /// Returns the Singleton cache repository.
-        /// Can be swapped to return a database or cloud repository.
+        /// Factory method — returns either the DB repo or the cache repo.
+        /// Everything else in the app is unaware of which one was chosen.
         /// </summary>
-        private static IQuantityMeasurementRepository CreateRepository()
+        private static IQuantityMeasurementRepository CreateRepository(bool useDatabase, string dbPath)
         {
-            return QuantityMeasurementCacheRepository.Instance;
-        }
-
-        /// <summary>
-        /// Factory method for service creation.
-        /// Returns the default service implementation.
-        /// Can be swapped for a mock, test double, or alternative implementation.
-        /// </summary>
-        private static IQuantityMeasurementService CreateService()
-        {
-            return new QuantityMeasurementServiceImpl();
-        }
-
-        /// <summary>
-        /// Factory method for controller creation.
-        /// Injects service and repository dependencies.
-        /// </summary>
-        private static QuantityMeasurementController CreateController(
-            IQuantityMeasurementService service,
-            IQuantityMeasurementRepository repository)
-        {
-            return new QuantityMeasurementController(service, repository);
+            if (useDatabase)
+            {
+                var dbConfig = new DatabaseConfig(dbPath);
+                return new QuantityMeasurementDatabaseRepository(dbConfig);
+            }
+            else
+            {
+                return QuantityMeasurementCacheRepository.Instance;
+            }
         }
     }
 }

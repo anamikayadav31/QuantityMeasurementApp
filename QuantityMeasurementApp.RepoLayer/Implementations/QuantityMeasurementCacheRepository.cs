@@ -101,11 +101,11 @@ namespace QuantityMeasurementApp.RepoLayer.Implementations
         private static string Serialize(QuantityMeasurementEntity e)
             => string.Join("|",
                 e.Id,
-                e.Operation    ?? "",
-                e.Operand1     ?? "",
-                e.Operand2     ?? "",
-                e.TargetUnit   ?? "",
-                e.Result       ?? "",
+                e.Operation ?? "",
+                e.Operand1 ?? "",
+                e.Operand2 ?? "",
+                e.TargetUnit ?? "",
+                e.Result ?? "",
                 e.HasError,
                 e.ErrorMessage ?? "",
                 e.Timestamp.ToString("o"));
@@ -118,18 +118,26 @@ namespace QuantityMeasurementApp.RepoLayer.Implementations
                 if (p.Length < 9) return null;
                 return new QuantityMeasurementEntity
                 {
-                    Id           = Guid.Parse(p[0]),
-                    Operation    = p[1],
-                    Operand1     = p[2],
-                    Operand2     = string.IsNullOrEmpty(p[3]) ? null : p[3],
-                    TargetUnit   = string.IsNullOrEmpty(p[4]) ? null : p[4],
-                    Result       = string.IsNullOrEmpty(p[5]) ? null : p[5],
-                    HasError     = bool.Parse(p[6]),
+                    Id = Guid.Parse(p[0]),
+                    Operation = p[1],
+                    Operand1 = p[2],
+                    Operand2 = string.IsNullOrEmpty(p[3]) ? null : p[3],
+                    TargetUnit = string.IsNullOrEmpty(p[4]) ? null : p[4],
+                    Result = string.IsNullOrEmpty(p[5]) ? null : p[5],
+                    HasError = bool.Parse(p[6]),
                     ErrorMessage = string.IsNullOrEmpty(p[7]) ? null : p[7],
-                    Timestamp    = DateTime.Parse(p[8])
+                    Timestamp = DateTime.Parse(p[8])
                 };
             }
             catch { return null; }
         }
+        // ── UC16 stubs (cache version just works in-memory) ──────────────
+
+        public IReadOnlyList<QuantityMeasurementEntity> GetByOperation(string operation)
+            => _cache.Where(e => e.Operation == operation).ToList().AsReadOnly();
+
+        public int GetTotalCount() => _cache.Count;
+
+        public void DeleteAll() => Clear();
     }
 }

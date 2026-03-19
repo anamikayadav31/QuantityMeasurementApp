@@ -12,6 +12,7 @@
           "MSTest.TestFramework": "4.1.0",
           "Microsoft.NET.Test.Sdk": "18.0.1",
           "QuantityMeasurementApp.BussinessLayer": "1.0.0",
+          "QuantityMeasurementApp.Console": "1.0.0",
           "QuantityMeasurementApp.ModelLayer": "1.0.0",
           "QuantityMeasurementApp.RepoLayer": "1.0.0",
           "MSTest.TestFramework.Extensions": "4.1.0.0"
@@ -581,6 +582,19 @@
           }
         }
       },
+      "QuantityMeasurementApp.Console/1.0.0": {
+        "dependencies": {
+          "QuantityMeasurementApp.BussinessLayer": "1.0.0",
+          "QuantityMeasurementApp.ModelLayer": "1.0.0",
+          "QuantityMeasurementApp.RepoLayer": "1.0.0"
+        },
+        "runtime": {
+          "QuantityMeasurementApp.Console.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "QuantityMeasurementApp.ModelLayer/1.0.0": {
         "runtime": {
           "QuantityMeasurementApp.ModelLayer.dll": {
@@ -708,6 +722,11 @@
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
     "QuantityMeasurementApp.BussinessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuantityMeasurementApp.Console/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

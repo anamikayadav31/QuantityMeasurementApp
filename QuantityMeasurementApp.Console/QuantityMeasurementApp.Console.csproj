@@ -1,10 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\QuantityMeasurementApp.BussinessLayer\QuantityMeasurementApp.BussinessLayer.csproj" />
     <ProjectReference Include="..\QuantityMeasurementApp.ModelLayer\QuantityMeasurementApp.ModelLayer.csproj" />
-     <ProjectReference Include="..\QuantityMeasurementApp.RepoLayer\QuantityMeasurementApp.RepoLayer.csproj" />
-    
+    <ProjectReference Include="..\QuantityMeasurementApp.RepoLayer\QuantityMeasurementApp.RepoLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Read appsettings.json at runtime -->
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -14,4 +18,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!-- Copy appsettings.json to output folder automatically -->
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
