@@ -2,55 +2,52 @@ using QuantityMeasurementApp.ModelLayer.Enums;
 
 namespace QuantityMeasurementApp.ModelLayer.DTO
 {
-    /// <summary>
-    /// Data Transfer Object (DTO) for quantity measurements.
-    ///
-    /// Purpose:
-    ///   Carries quantity data between layers:
-    ///     Controller → Service → (back) → Controller
-    ///
-    /// Design:
-    ///   - Immutable: all properties set via constructor, no setters
-    ///   - Unit stored as uppercase string for flexibility across layers
-    ///   - MeasurementType tags which category the unit belongs to,
-    ///     preventing cross-category operations at service level
-    ///
-    /// Example usage:
-    ///   var dto = new QuantityDTO(1.0, "FEET", MeasurementType.LENGTH);
-    /// </summary>
+    // ── UC15: N-Tier Architecture ────────────────────────────────────────
+    // DTO (Data Transfer Object) that carries a quantity between layers.
+    //
+    // Key design decisions:
+    //   - Immutable: all properties are set once in the constructor.
+    //   - Unit stored as uppercase string so it can cross layer boundaries
+    //     without forcing every layer to know about enums.
+    //   - MeasurementType tag prevents cross-category operations.
+    //
+    // Example:
+    //   var dto = new QuantityDTO(1.0, "FEET", MeasurementType.LENGTH);
     public class QuantityDTO
     {
-        /// <summary>Numeric value of the quantity. E.g. 1.0, 12.5, 100</summary>
+        // ── Properties ───────────────────────────────────────────────────
+
+        /// <summary>The numeric amount, e.g. 1.0, 12.5</summary>
         public double Value { get; }
 
-        /// <summary>Unit as uppercase string. E.g. "FEET", "GRAM", "CELSIUS"</summary>
+        /// <summary>Unit name in UPPER_CASE, e.g. "FEET", "GRAM", "CELSIUS"</summary>
         public string Unit { get; }
 
-        /// <summary>Measurement category. E.g. LENGTH, WEIGHT, VOLUME, TEMPERATURE</summary>
+        /// <summary>Which measurement category: LENGTH / WEIGHT / VOLUME / TEMPERATURE</summary>
         public MeasurementType MeasurementType { get; }
 
-        /// <summary>
-        /// Creates an immutable QuantityDTO.
-        /// </summary>
-        /// <param name="value">Numeric value — must not be NaN or Infinity</param>
-        /// <param name="unit">Unit string — must not be null or empty</param>
-        /// <param name="measurementType">Measurement category</param>
+        // ── Constructor ──────────────────────────────────────────────────
+
         public QuantityDTO(double value, string unit, MeasurementType measurementType)
         {
+            // Guard: value must be a normal finite number
             if (double.IsNaN(value) || double.IsInfinity(value))
                 throw new ArgumentException(
-                    $"Invalid numeric value '{value}'. Must be a finite number.");
+                    $"Value '{value}' is not valid. Please enter a finite number.");
 
+            // Guard: unit string must not be blank
             if (string.IsNullOrWhiteSpace(unit))
-                throw new ArgumentException("Unit cannot be null or empty.");
+                throw new ArgumentException("Unit cannot be empty.");
 
             Value           = value;
-            Unit            = unit.ToUpperInvariant();
+            Unit            = unit.ToUpperInvariant();   // always uppercase
             MeasurementType = measurementType;
         }
 
-        /// <summary>Human-readable representation. E.g. "1 FEET [LENGTH]"</summary>
+        // ── Display ──────────────────────────────────────────────────────
+
+        // Example output:  "1 FEET [LENGTH]"
         public override string ToString()
-            => $"{Math.Round(Value, 3)} {Unit} [{MeasurementType}]";
+            => $"{Math.Round(Value, 4)} {Unit} [{MeasurementType}]";
     }
 }

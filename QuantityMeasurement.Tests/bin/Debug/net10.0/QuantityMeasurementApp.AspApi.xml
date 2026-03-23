@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QuantityMeasurementApp.AspApi</name>
+    </assembly>
+    <members>
+        <member name="T:QuantityMeasurementApp.AspApi.DTO.QuantityInputDTO">
+             <summary>
+             The JSON body the client sends for every operation.
+            
+             Binary ops (compare/add/subtract/divide):
+               { "thisQuantityDTO": {...}, "thatQuantityDTO": {...} }
+            
+             Convert:
+               { "thisQuantityDTO": {...}, "thatQuantityDTO": { "unit":"INCHES", ... } }
+               (thatQuantityDTO.unit = target unit; its value field is ignored)
+             </summary>
+        </member>
+        <member name="T:QuantityMeasurementApp.AspApi.DTO.QuantityRequestItem">
+            <summary>One quantity as sent by the client.</summary>
+        </member>
+        <member name="T:QuantityMeasurementApp.AspApi.DTO.QuantityMeasurementResponseDTO">
+             <summary>
+             The JSON body the API returns for every operation.
+            
+             Compare:                resultString = "true" / "false"
+             Convert/Add/Subtract:   resultValue + resultUnit
+             Divide:                 resultValue (dimensionless ratio)
+             Error:                  isError = true, errorMessage = reason
+            
+             Sample success (compare):
+             {
+               "thisValue":1.0,  "thisUnit":"FEET",   "thisMeasurementType":"LengthUnit",
+               "thatValue":12.0, "thatUnit":"INCHES",  "thatMeasurementType":"LengthUnit",
+               "operation":"compare",
+               "resultString":"true", "resultValue":0.0, "resultUnit":null,
+               "errorMessage":null, "isError":false
+             }
+             </summary>
+        </member>
+        <member name="T:QuantityMeasurementApp.AspApi.DTO.ErrorResponseDTO">
+             <summary>
+             Standard error envelope returned by GlobalExceptionHandlerMiddleware
+             when an unhandled exception escapes a controller action.
+            
+             Equivalent to Java Spring's @ControllerAdvice error response.
+            
+             Sample:
+             {
+               "timestamp":"2026-03-19T12:00:00Z",
+               "status":400,
+               "error":"Quantity Measurement Error",
+               "message":"Temperature does not support arithmetic...",
+               "path":"/api/v1/quantities/add"
+             }
+             </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.PasswordHasher.HashPassword(System.String)">
+            <summary>
+            Hash a password with a random salt.
+            Returns a string containing SALT||HASH that you store in the database.
+            </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.PasswordHasher.VerifyPassword(System.String,System.String)">
+            <summary>
+            Verify a plain text password against a stored SALT||HASH string.
+            Returns true if the password matches.
+            </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.PasswordHasher.GenerateSalt">
+            <summary>
+            Generate a random 32-character hex string to use as a salt.
+            Uses RandomNumberGenerator — cryptographically secure.
+            </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.AesEncryptionService.Encrypt(System.String)">
+            <summary>
+            Encrypt a string. Returns Base64(IV + CipherText).
+            A new random IV is generated each time, so identical inputs
+            produce different outputs — this is correct and expected.
+            </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.AesEncryptionService.Decrypt(System.String)">
+            <summary>
+            Decrypt a Base64(IV + CipherText) string back to plaintext.
+            </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.Sha256Hasher.Hash(System.String)">
+            <summary>
+            Compute SHA-256 hash of a string.
+            Returns a 64-character lowercase hex string.
+            </summary>
+        </member>
+        <member name="M:QuantityMeasurementApp.AspApi.Security.Sha256Hasher.HashWithSalt(System.String,System.String)">
+            <summary>
+            Compute SHA-256 hash of a string with an extra salt appended.
+            Useful for hashing tokens, API keys, etc.
+            </summary>
+        </member>
+    </members>
+</doc>

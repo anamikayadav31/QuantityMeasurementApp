@@ -1,10 +1,9 @@
 namespace QuantityMeasurementApp.ModelLayer.Enums
 {
-    /// <summary>
-    /// Supported length units.
-    /// Base unit for conversions: FEET
-    /// All conversion logic lives in BussinessLayer/Converters/LengthUnitConverter.cs
-    /// </summary>
+    // ── UC1/UC2: Feet Measurement Equality & UC4: Extended Unit Support ──
+    // Enum lists every supported length unit.
+    // Base unit for all conversions = FEET.
+    // Conversion factors live in BussinessLayer/Converters/LengthUnitConverter.cs
     public enum LengthUnit
     {
         FEET,

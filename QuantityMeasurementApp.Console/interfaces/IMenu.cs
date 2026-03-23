@@ -1,14 +1,13 @@
 namespace QuantityMeasurementApp.ConsoleApp.Interfaces
 {
-    /// <summary>
-    /// Interface for any Menu class in the Quantity Measurement Console Application.
-    /// Allows different menu implementations to be swapped easily.
-    /// </summary>
+    // ── UC15: N-Tier Architecture – Dependency Inversion ─────────────────
+    // The application's entry point (Program.cs) depends on this interface,
+    // not the concrete Menu class.
+    // This makes it easy to replace the menu with a GUI or web UI later.
     public interface IMenu
     {
         /// <summary>
-        /// Displays the menu, reads user input, and executes the selected operation.
-        /// Loops until the user chooses to exit.
+        /// Show the menu and loop until the user chooses to exit.
         /// </summary>
         void Show();
     }

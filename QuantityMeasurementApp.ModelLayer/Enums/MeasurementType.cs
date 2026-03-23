@@ -1,14 +1,8 @@
 namespace QuantityMeasurementApp.ModelLayer.Enums
 {
-    /// <summary>
-    /// Categorises a quantity into one of the four supported measurement domains.
-    ///
-    /// Used by:
-    ///   - QuantityDTO  to tag which category its unit belongs to
-    ///   - ServiceImpl  to prevent cross-category operations
-    ///                  (e.g. cannot Add LENGTH to WEIGHT)
-    ///   - UnitParser   to resolve a unit string to the correct enum type
-    /// </summary>
+    // ── UC3: Generic Quantity Class for DRY Principle ──────────────────
+    // This enum groups all measurement categories so the service layer
+    // can prevent mixing incompatible units (e.g. FEET + KILOGRAM).
     public enum MeasurementType
     {
         LENGTH,

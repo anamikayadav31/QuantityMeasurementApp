@@ -1,10 +1,9 @@
 namespace QuantityMeasurementApp.ModelLayer.Enums
 {
-    /// <summary>
-    /// Supported volume units.
-    /// Base unit for conversions: LITRE
-    /// All conversion logic lives in BussinessLayer/Converters/VolumeUnitConverter.cs
-    /// </summary>
+    // ── UC11: Volume Measurement ─────────────────────────────────────────
+    // Enum lists every supported volume unit.
+    // Base unit for all conversions = LITRE.
+    // Conversion factors live in BussinessLayer/Converters/VolumeUnitConverter.cs
     public enum VolumeUnit
     {
         LITRE,

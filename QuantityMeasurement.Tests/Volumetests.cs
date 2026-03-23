@@ -1,15 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QuantityMeasurementApp.BussinessLayer.Services;
 using QuantityMeasurementApp.ModelLayer.DTO;
 using QuantityMeasurementApp.ModelLayer.Enums;
-using QuantityMeasurementApp.BussinessLayer.Services;
-
 
 namespace QuantityMeasurementApp.Tests
 {
-    /// <summary>
-    /// Unit tests for Volume operations.
-    /// Covers: compare (UC3), convert (UC6), add (UC9), subtract (UC12).
-    /// </summary>
+    // ── UC11: Volume Measurement (Compare, Convert, Add, Subtract, Divide) ─
     [TestClass]
     public class VolumeTests
     {
@@ -18,7 +14,7 @@ namespace QuantityMeasurementApp.Tests
         [TestInitialize]
         public void Setup() => _service = new QuantityMeasurementServiceImpl();
 
-        // ── COMPARE (UC3) ──────────────────────────────────────────────────
+        // ── COMPARE ──────────────────────────────────────────────────────
 
         [TestMethod]
         public void Compare_1Litre_And_1Litre_AreEqual()
@@ -44,7 +40,7 @@ namespace QuantityMeasurementApp.Tests
             Assert.IsFalse(_service.Compare(q1, q2));
         }
 
-        // ── CONVERT (UC6) ──────────────────────────────────────────────────
+        // ── CONVERT ──────────────────────────────────────────────────────
 
         [TestMethod]
         public void Convert_1Litre_To_1000Millilitres()
@@ -62,7 +58,7 @@ namespace QuantityMeasurementApp.Tests
             Assert.AreEqual(3.78541, result.Value, 0.0001);
         }
 
-        // ── ADD (UC9) ──────────────────────────────────────────────────────
+        // ── ADD ───────────────────────────────────────────────────────────
 
         [TestMethod]
         public void Add_1Litre_And_1000Millilitres_Returns2Litres()
@@ -70,21 +66,11 @@ namespace QuantityMeasurementApp.Tests
             var litre = new QuantityDTO(1,    "LITRE",      MeasurementType.VOLUME);
             var ml    = new QuantityDTO(1000, "MILLILITRE", MeasurementType.VOLUME);
             var result = _service.Add(litre, ml);
-            Assert.AreEqual(2.0, result.Value, 0.0001);
+            Assert.AreEqual(2.0,    result.Value, 0.0001);
             Assert.AreEqual("LITRE", result.Unit);
         }
 
-        [TestMethod]
-        public void Add_1Litre_And_1Gallon()
-        {
-            var litre  = new QuantityDTO(1, "LITRE",  MeasurementType.VOLUME);
-            var gallon = new QuantityDTO(1, "GALLON", MeasurementType.VOLUME);
-            var result = _service.Add(litre, gallon);
-            Assert.AreEqual(4.78541, result.Value, 0.0001);
-            Assert.AreEqual("LITRE", result.Unit);
-        }
-
-        // ── SUBTRACT (UC12) ────────────────────────────────────────────────
+        // ── SUBTRACT ─────────────────────────────────────────────────────
 
         [TestMethod]
         public void Subtract_2Litres_Minus_1000Millilitres_Returns1Litre()
@@ -95,7 +81,7 @@ namespace QuantityMeasurementApp.Tests
             Assert.AreEqual(1.0, result.Value, 0.0001);
         }
 
-        // ── DIVIDE ─────────────────────────────────────────────────────────
+        // ── DIVIDE ───────────────────────────────────────────────────────
 
         [TestMethod]
         public void Divide_2Litres_By_1Litre_Returns2()

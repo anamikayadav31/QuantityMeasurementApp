@@ -3,45 +3,41 @@ using QuantityMeasurementApp.ConsoleApp.Interfaces;
 
 namespace QuantityMeasurementApp.ConsoleApp.Menu
 {
-    /// <summary>
-    /// Main console menu for the Quantity Measurement Application.
-    ///
-    /// Responsibilities:
-    ///   - Display all available operations
-    ///   - Read and validate user choice
-    ///   - Route to the appropriate controller method
-    ///   - Loop until user chooses to exit
-    ///
-    /// Uses IMenu interface to allow substitution with other menu implementations.
-    /// Controller is injected via constructor (Dependency Injection).
-    /// </summary>
-    public class Menu : IMenu
+    // ── UC15: N-Tier Architecture – UI / Menu Layer ───────────────────────
+    //
+    // The menu is the only part of the app the user directly sees.
+    // It only knows how to:
+    //   - Print options to the screen
+    //   - Read the user's choice
+    //   - Call the right controller method
+    //
+    // It does NOT contain any business logic or data access.
+    public class ConsoleMenu : IMenu
     {
         private readonly QuantityMeasurementController _controller;
 
-        /// <summary>
-        /// Constructor injection of the controller.
-        /// </summary>
-        public Menu(QuantityMeasurementController controller)
+        // Constructor injection (Dependency Inversion Principle)
+        public ConsoleMenu(QuantityMeasurementController controller)
         {
             _controller = controller ?? throw new ArgumentNullException(nameof(controller));
         }
 
-        /// <summary>
-        /// Displays the menu and runs the main input loop until exit is chosen.
-        /// </summary>
+        // ── Main loop ─────────────────────────────────────────────────────
+
         public void Show()
         {
             bool exit = false;
 
             while (!exit)
             {
-                PrintHeader();
+                PrintMenu();
+                Console.Write("\n  Enter your choice : ");
+                string? input = Console.ReadLine();
 
-                Console.Write("\nEnter your choice: ");
-                if (!int.TryParse(Console.ReadLine(), out int choice))
+                if (!int.TryParse(input, out int choice))
                 {
-                    Console.WriteLine("  Invalid input. Please enter a number between 0 and 20.");
+                    Console.WriteLine("\n  Please enter a number from the menu.");
+                    Pause();
                     continue;
                 }
 
@@ -49,90 +45,97 @@ namespace QuantityMeasurementApp.ConsoleApp.Menu
 
                 switch (choice)
                 {
-                    // ── COMPARE ──────────────────────────────────────────────
-                    case 1: _controller.PerformCompareLength(); break;
-                    case 2: _controller.PerformCompareWeight(); break;
-                    case 3: _controller.PerformCompareVolume(); break;
-                    case 4: _controller.PerformCompareTemperature(); break;
+                    // ── COMPARE ──────────────────────────────────────────
+                    case 1:  _controller.PerformCompareLength();      break;
+                    case 2:  _controller.PerformCompareWeight();      break;
+                    case 3:  _controller.PerformCompareVolume();      break;
+                    case 4:  _controller.PerformCompareTemperature(); break;
 
-                    // ── CONVERT ──────────────────────────────────────────────
-                    case 5: _controller.PerformConvertLength(); break;
-                    case 6: _controller.PerformConvertWeight(); break;
-                    case 7: _controller.PerformConvertVolume(); break;
-                    case 8: _controller.PerformConvertTemperature(); break;
+                    // ── CONVERT ──────────────────────────────────────────
+                    case 5:  _controller.PerformConvertLength();      break;
+                    case 6:  _controller.PerformConvertWeight();      break;
+                    case 7:  _controller.PerformConvertVolume();      break;
+                    case 8:  _controller.PerformConvertTemperature(); break;
 
-                    // ── ADD ──────────────────────────────────────────────────
-                    case 9: _controller.PerformAddLength(); break;
-                    case 10: _controller.PerformAddWeight(); break;
-                    case 11: _controller.PerformAddVolume(); break;
+                    // ── ADD ──────────────────────────────────────────────
+                    case 9:  _controller.PerformAddLength();          break;
+                    case 10: _controller.PerformAddWeight();          break;
+                    case 11: _controller.PerformAddVolume();          break;
 
-                    // ── SUBTRACT ─────────────────────────────────────────────
-                    case 12: _controller.PerformSubtractLength(); break;
-                    case 13: _controller.PerformSubtractWeight(); break;
-                    case 14: _controller.PerformSubtractVolume(); break;
+                    // ── SUBTRACT ─────────────────────────────────────────
+                    case 12: _controller.PerformSubtractLength();     break;
+                    case 13: _controller.PerformSubtractWeight();     break;
+                    case 14: _controller.PerformSubtractVolume();     break;
 
-                    // ── DIVIDE ───────────────────────────────────────────────
-                    case 15: _controller.PerformDivideLength(); break;
-                    case 16: _controller.PerformDivideWeight(); break;
-                    case 17: _controller.PerformDivideVolume(); break;
+                    // ── DIVIDE ───────────────────────────────────────────
+                    case 15: _controller.PerformDivideLength();       break;
+                    case 16: _controller.PerformDivideWeight();       break;
+                    case 17: _controller.PerformDivideVolume();       break;
 
-                    // ── HISTORY / EXIT ────────────────────────────────────────
-                    case 18: _controller.ShowHistory(); break;
+                    // ── OTHER ────────────────────────────────────────────
+                    case 18: _controller.ShowHistory();               break;
 
                     case 0:
-                        Console.WriteLine("\nThank you for using the Quantity Measurement Application!");
+                        Console.WriteLine("\n  Thank you for using Quantity Measurement App. Goodbye!");
                         exit = true;
                         break;
 
                     default:
-                        Console.WriteLine("  Invalid choice. Please select a number from the menu.");
+                        Console.WriteLine("\n  Invalid choice. Please select a number from the menu.");
                         break;
                 }
 
-                if (!exit) Console.WriteLine();
+                if (!exit) Pause();
             }
         }
 
-        private static void PrintHeader()
+        // ── Print the full menu ───────────────────────────────────────────
+
+        private static void PrintMenu()
         {
-            Console.WriteLine("==================================================");
-            Console.WriteLine("        QUANTITY MEASUREMENT APPLICATION");
-            Console.WriteLine("==================================================");
+            Console.Clear();
+            Console.WriteLine("══════════════════════════════════════════════════");
+            Console.WriteLine("        QUANTITY MEASUREMENT APPLICATION           ");
+            Console.WriteLine("══════════════════════════════════════════════════");
 
-            Console.WriteLine("\nCOMPARE OPERATIONS");
-            Console.WriteLine("[1]  Compare Length");
-            Console.WriteLine("[2]  Compare Weight");
-            Console.WriteLine("[3]  Compare Volume");
-            Console.WriteLine("[4]  Compare Temperature");
+            Console.WriteLine("\n  COMPARE OPERATIONS");
+            Console.WriteLine("  [1]  Compare Length       (FEET, INCHES, YARDS, CM)");
+            Console.WriteLine("  [2]  Compare Weight       (KG, GRAM, POUND)");
+            Console.WriteLine("  [3]  Compare Volume       (LITRE, ML, GALLON)");
+            Console.WriteLine("  [4]  Compare Temperature  (CELSIUS, FAHRENHEIT, KELVIN)");
 
-            Console.WriteLine("\nCONVERT OPERATIONS");
-            Console.WriteLine("[5]  Convert Length");
-            Console.WriteLine("[6]  Convert Weight");
-            Console.WriteLine("[7]  Convert Volume");
-            Console.WriteLine("[8]  Convert Temperature");
+            Console.WriteLine("\n  CONVERT OPERATIONS");
+            Console.WriteLine("  [5]  Convert Length");
+            Console.WriteLine("  [6]  Convert Weight");
+            Console.WriteLine("  [7]  Convert Volume");
+            Console.WriteLine("  [8]  Convert Temperature");
 
-            Console.WriteLine("\nADD OPERATIONS");
-            Console.WriteLine("[9]   Add Length");
-            Console.WriteLine("[10]  Add Weight");
-            Console.WriteLine("[11]  Add Volume");
+            Console.WriteLine("\n  ADD OPERATIONS");
+            Console.WriteLine("  [9]  Add Length");
+            Console.WriteLine("  [10] Add Weight");
+            Console.WriteLine("  [11] Add Volume");
 
-            Console.WriteLine("\nSUBTRACT OPERATIONS");
-            Console.WriteLine("[12]  Subtract Length");
-            Console.WriteLine("[13]  Subtract Weight");
-            Console.WriteLine("[14]  Subtract Volume");
+            Console.WriteLine("\n  SUBTRACT OPERATIONS");
+            Console.WriteLine("  [12] Subtract Length");
+            Console.WriteLine("  [13] Subtract Weight");
+            Console.WriteLine("  [14] Subtract Volume");
 
-            Console.WriteLine("\nDIVIDE OPERATIONS");
-            Console.WriteLine("[15]  Divide Length");
-            Console.WriteLine("[16]  Divide Weight");
-            Console.WriteLine("[17]  Divide Volume");
+            Console.WriteLine("\n  DIVIDE OPERATIONS");
+            Console.WriteLine("  [15] Divide Length");
+            Console.WriteLine("  [16] Divide Weight");
+            Console.WriteLine("  [17] Divide Volume");
 
-            Console.WriteLine("\nOTHER");
-            Console.WriteLine("[18]  View Operation History");
+            Console.WriteLine("\n  OTHER");
+            Console.WriteLine("  [18] View Operation History");
+            Console.WriteLine("  [0]  Exit");
 
-            Console.WriteLine("\n[0]   Exit Application");
+            Console.WriteLine("──────────────────────────────────────────────────");
+        }
 
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("Enter the number of the operation you want to perform.");
+        private static void Pause()
+        {
+            Console.WriteLine("\n  (Press ENTER to continue...)");
+            Console.ReadLine();
         }
     }
 }

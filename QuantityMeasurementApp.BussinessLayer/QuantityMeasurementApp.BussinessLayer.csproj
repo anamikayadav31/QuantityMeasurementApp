@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QuantityMeasurementApp.ModelLayer\QuantityMeasurementApp.ModelLayer.csproj" />
-    <ProjectReference Include="..\QuantityMeasurementApp.RepoLayer\QuantityMeasurementApp.RepoLayer.csproj" />
-    
   </ItemGroup>
 
 </Project>

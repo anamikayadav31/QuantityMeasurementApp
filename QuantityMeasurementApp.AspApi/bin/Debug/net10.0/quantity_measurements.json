@@ -1,0 +1,35 @@
+[
+  {
+    "Id": "3263bb84-e717-46b1-b718-1134e3c84773",
+    "Operation": "COMPARE",
+    "Timestamp": "2026-03-23T10:42:08.709525+05:30",
+    "Operand1": "2 KELVIN [VolumeUnit]",
+    "Operand2": "0 FEET [LengthUnit]",
+    "TargetUnit": null,
+    "Result": null,
+    "HasError": true,
+    "ErrorMessage": "Cannot perform \u0027Compare\u0027 between VOLUME and LENGTH. Both quantities must belong to the same measurement category."
+  },
+  {
+    "Id": "05eaf6df-d280-4112-bb50-5d4dffd6d083",
+    "Operation": "COMPARE",
+    "Timestamp": "2026-03-23T10:42:45.8961271+05:30",
+    "Operand1": "2 FEET [VolumeUnit]",
+    "Operand2": "0 FEET [LengthUnit]",
+    "TargetUnit": null,
+    "Result": null,
+    "HasError": true,
+    "ErrorMessage": "Cannot perform \u0027Compare\u0027 between VOLUME and LENGTH. Both quantities must belong to the same measurement category."
+  },
+  {
+    "Id": "920e29cd-6011-4df3-bec0-cc6ae96e9803",
+    "Operation": "COMPARE",
+    "Timestamp": "2026-03-23T10:43:31.4020426+05:30",
+    "Operand1": "2 FEET [LENGTH]",
+    "Operand2": "0 FEET [LENGTH]",
+    "TargetUnit": null,
+    "Result": "False",
+    "HasError": false,
+    "ErrorMessage": null
+  }
+]
