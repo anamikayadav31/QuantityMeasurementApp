@@ -6,7 +6,7 @@ namespace QuantityMeasurementApp.AspApi.Middleware
 {
     // ── UC17: Global Exception Handling ──────────────────────────────────
     //
-    // Equivalent to Java Spring's @ControllerAdvice + @ExceptionHandler.
+
     //
     // This middleware wraps the ENTIRE HTTP pipeline.
     // If any unhandled exception escapes a controller, this catches it and

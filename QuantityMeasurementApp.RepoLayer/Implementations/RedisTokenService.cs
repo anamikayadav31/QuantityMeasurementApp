@@ -1,4 +1,5 @@
 using StackExchange.Redis;
+using Microsoft.Extensions.Logging;
 
 namespace QuantityMeasurementApp.AspApi.Security
 {

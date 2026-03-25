@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using BCrypt.Net;
+using Microsoft.Extensions.Configuration;
 
 namespace QuantityMeasurementApp.AspApi.Security
 {

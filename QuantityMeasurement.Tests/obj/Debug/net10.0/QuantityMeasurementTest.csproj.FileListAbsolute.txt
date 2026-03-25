@@ -273,7 +273,6 @@ D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Micro
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.CSharp.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Caching.Memory.dll
-D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.Binder.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.dll
@@ -284,7 +283,6 @@ D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Micro
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Configuration.Xml.dll
-D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.DependencyInjection.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Diagnostics.Abstractions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Diagnostics.dll
@@ -303,7 +301,6 @@ D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Micro
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Identity.Stores.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Localization.dll
-D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Logging.Configuration.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Logging.Console.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Logging.Debug.dll
@@ -315,7 +312,6 @@ D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Micro
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Options.dll
-D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Primitives.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.Validation.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.Extensions.WebEncoders.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\refs\Microsoft.JSInterop.dll
@@ -544,3 +540,8 @@ D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\runtimes\w
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.AspApi.dll
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.AspApi.pdb
 D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\QuantityMeasurementApp.AspApi.xml
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
+D:\QuantityMeasurementApp\QuantityMeasurement.Tests\bin\Debug\net10.0\System.IO.Hashing.dll

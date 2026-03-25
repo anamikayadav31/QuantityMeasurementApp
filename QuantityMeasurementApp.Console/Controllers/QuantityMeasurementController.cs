@@ -135,7 +135,7 @@ namespace QuantityMeasurementApp.ConsoleApp.Controllers
 
         public void ShowHistory()
         {
-            var records = _repository.GetAll();
+            var records = _repository.GetAllAsync();
 
             Console.WriteLine($"\n──── Operation History ({records.Count} records) ────");
 
@@ -160,14 +160,14 @@ namespace QuantityMeasurementApp.ConsoleApp.Controllers
                 Console.WriteLine($"\nResult: {q1} == {q2} ? → {result}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), result.ToString());
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\n[ERROR] {ex.Message}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), ex.Message, true);
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
         }
 
@@ -180,14 +180,14 @@ namespace QuantityMeasurementApp.ConsoleApp.Controllers
                 Console.WriteLine($"\nResult: {q} = {result}");
 
                 var entity = new QuantityMeasurementEntity(op, q.ToString(), targetUnit, result.ToString());
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\n[ERROR] {ex.Message}");
 
                 var entity = new QuantityMeasurementEntity(op, q.ToString(), null, ex.Message, true);
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
         }
 
@@ -200,14 +200,14 @@ namespace QuantityMeasurementApp.ConsoleApp.Controllers
                 Console.WriteLine($"\nResult: {q1} + {q2} = {result}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), result.ToString());
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\n[ERROR] {ex.Message}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), ex.Message, true);
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
         }
 
@@ -220,14 +220,14 @@ namespace QuantityMeasurementApp.ConsoleApp.Controllers
                 Console.WriteLine($"\nResult: {q1} - {q2} = {result}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), result.ToString());
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\n[ERROR] {ex.Message}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), ex.Message, true);
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
         }
 
@@ -240,14 +240,14 @@ namespace QuantityMeasurementApp.ConsoleApp.Controllers
                 Console.WriteLine($"\nResult: {q1} ÷ {q2} = {Math.Round(result, 4)}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), result.ToString("F4"));
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"\n[ERROR] {ex.Message}");
 
                 var entity = new QuantityMeasurementEntity(op, q1.ToString(), q2.ToString(), ex.Message, true);
-                _repository.Save(entity);
+                _repository.SaveAsync(entity);
             }
         }
 

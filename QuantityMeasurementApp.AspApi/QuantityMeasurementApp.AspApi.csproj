@@ -16,20 +16,25 @@
 
   <ItemGroup>
     <!-- Swagger -->
-    <PackageReference Include="Swashbuckle.AspNetCore"                        Version="6.6.2"  />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.17.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 
     <!-- JWT -->
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0"  />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt"               Version="8.0.1"  />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
 
     <!-- BCrypt password hashing -->
-    <PackageReference Include="BCrypt.Net-Next"                               Version="4.0.3"  />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
 
     <!-- Redis -->
-    <PackageReference Include="StackExchange.Redis"                           Version="2.8.16" />
+    <PackageReference Include="StackExchange.Redis" Version="2.12.4" />
 
     <!-- EF Core Design — required for dotnet ef migrations commands -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"          Version="9.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
