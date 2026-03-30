@@ -1,0 +1,16 @@
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\bin\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.deps.json
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\bin\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.dll
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\bin\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.pdb
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\bin\Debug\net10.0\QuantityMeasurementApp.ModelLayer.dll
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\bin\Debug\net10.0\QuantityMeasurementApp.ModelLayer.pdb
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.csproj.AssemblyReference.cache
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.AssemblyInfoInputs.cache
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.AssemblyInfo.cs
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.csproj.CoreCompileInputs.cache
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.sourcelink.json
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\Quantity.D984363A.Up2Date
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.dll
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\refint\QuantityMeasurementApp.BussinessLayer.dll
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\QuantityMeasurementApp.BussinessLayer.pdb
+D:\QuantityMeasurementApp\QuantityMeasurementApp.BussinessLayer\obj\Debug\net10.0\ref\QuantityMeasurementApp.BussinessLayer.dll

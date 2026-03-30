@@ -1,0 +1,6 @@
+{
+  "QuantityMeasurementApp.AspApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.AspApi",
+  "QuantityMeasurementApp.BussinessLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.BussinessLayer",
+  "QuantityMeasurementApp.ModelLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.ModelLayer",
+  "QuantityMeasurementApp.RepoLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\QuantityMeasurementApp\\QuantityMeasurementApp.RepoLayer"
+}
