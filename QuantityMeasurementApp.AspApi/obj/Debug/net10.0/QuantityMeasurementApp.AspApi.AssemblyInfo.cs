@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuantityMeasurementApp.AspApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1850898da7189b37fe485add756df639a39ce4da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9a1fb603f72ffa1dcd31c6bb437f16c0b9d4998")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuantityMeasurementApp.AspApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuantityMeasurementApp.AspApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
