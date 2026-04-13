@@ -1,6 +1,0 @@
-D:\QuantityMeasurementApp\QuantityMeasurementApp.RepoLayer\obj\Debug\net8.0\QuantityMeasurementApp.RepoLayer.csproj.AssemblyReference.cache
-D:\QuantityMeasurementApp\QuantityMeasurementApp.RepoLayer\obj\Debug\net8.0\QuantityMeasurementApp.RepoLayer.GeneratedMSBuildEditorConfig.editorconfig
-D:\QuantityMeasurementApp\QuantityMeasurementApp.RepoLayer\obj\Debug\net8.0\QuantityMeasurementApp.RepoLayer.AssemblyInfoInputs.cache
-D:\QuantityMeasurementApp\QuantityMeasurementApp.RepoLayer\obj\Debug\net8.0\QuantityMeasurementApp.RepoLayer.AssemblyInfo.cs
-D:\QuantityMeasurementApp\QuantityMeasurementApp.RepoLayer\obj\Debug\net8.0\QuantityMeasurementApp.RepoLayer.csproj.CoreCompileInputs.cache
-D:\QuantityMeasurementApp\QuantityMeasurementApp.RepoLayer\obj\Debug\net8.0\QuantityMeasurementApp.RepoLayer.sourcelink.json
