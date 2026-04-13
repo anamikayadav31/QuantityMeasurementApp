@@ -3,17 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuantityMeasurement.Tests", "QuantityMeasurement.Tests", "{40F077E6-3463-521A-E032-EEF603B9D729}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantityMeasurementTest", "QuantityMeasurement.Tests\QuantityMeasurementTest.csproj", "{07C20334-DAFA-3E18-90AE-0121B9D3799C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantityMeasurementApp.ModelLayer", "QuantityMeasurementApp.ModelLayer\QuantityMeasurementApp.ModelLayer.csproj", "{35939226-CDF3-47CC-AFEC-B46ACE1D60CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantityMeasurementApp.BussinessLayer", "QuantityMeasurementApp.BussinessLayer\QuantityMeasurementApp.BussinessLayer.csproj", "{676133BC-D1C1-4BB6-81DC-4F0572A934CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantityMeasurementApp.RepoLayer", "QuantityMeasurementApp.RepoLayer\QuantityMeasurementApp.RepoLayer.csproj", "{6A51725B-753A-4978-B339-DB60B18D27D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantityMeasurementApp.Console", "QuantityMeasurementApp.Console\QuantityMeasurementApp.Console.csproj", "{CB9C2B4A-F15F-424B-8291-8905D58EDF86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantityMeasurementApp.AspApi", "QuantityMeasurementApp.AspApi\QuantityMeasurementApp.AspApi.csproj", "{D732EC37-161D-4D87-8CBA-3AF930567A90}"
 EndProject
@@ -27,18 +21,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Debug|x64.Build.0 = Debug|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Debug|x86.Build.0 = Debug|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Release|x64.ActiveCfg = Release|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Release|x64.Build.0 = Release|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Release|x86.ActiveCfg = Release|Any CPU
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C}.Release|x86.Build.0 = Release|Any CPU
 		{35939226-CDF3-47CC-AFEC-B46ACE1D60CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35939226-CDF3-47CC-AFEC-B46ACE1D60CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35939226-CDF3-47CC-AFEC-B46ACE1D60CD}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -75,18 +57,6 @@ Global
 		{6A51725B-753A-4978-B339-DB60B18D27D4}.Release|x64.Build.0 = Release|Any CPU
 		{6A51725B-753A-4978-B339-DB60B18D27D4}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A51725B-753A-4978-B339-DB60B18D27D4}.Release|x86.Build.0 = Release|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Debug|x64.Build.0 = Debug|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Debug|x86.Build.0 = Debug|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Release|x64.ActiveCfg = Release|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Release|x64.Build.0 = Release|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Release|x86.ActiveCfg = Release|Any CPU
-		{CB9C2B4A-F15F-424B-8291-8905D58EDF86}.Release|x86.Build.0 = Release|Any CPU
 		{D732EC37-161D-4D87-8CBA-3AF930567A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D732EC37-161D-4D87-8CBA-3AF930567A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D732EC37-161D-4D87-8CBA-3AF930567A90}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -102,9 +72,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{07C20334-DAFA-3E18-90AE-0121B9D3799C} = {40F077E6-3463-521A-E032-EEF603B9D729}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4916ED49-B0FF-4E87-88B4-C10EE71D8333}
