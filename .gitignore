@@ -1,8 +1,89 @@
+# ==============================
+# Build results
+# ==============================
 bin/
 obj/
+[Bb]in/
+[Oo]bj/
+
+# ==============================
+# Visual Studio
+# ==============================
 .vs/
 *.user
 *.suo
-*.cache
+*.userosscache
+*.sln.docstates
+
+# ==============================
+# Rider / JetBrains
+# ==============================
+.idea/
+*.sln.iml
+
+# ==============================
+# VS Code
+# ==============================
+.vscode/
+
+# ==============================
+# Build outputs
+# ==============================
 *.dll
+*.exe
 *.pdb
+*.cache
+*.log
+
+# ==============================
+# NuGet
+# ==============================
+*.nupkg
+*.snupkg
+packages/
+**/packages/
+
+# NuGet fallback folder
+*.nuget.props
+*.nuget.targets
+
+# ==============================
+# ASP.NET Scaffolding
+# ==============================
+ScaffoldingReadMe.txt
+
+# ==============================
+# Entity Framework
+# ==============================
+*.db
+*.db-shm
+*.db-wal
+
+# EF migrations local files (optional)
+Migrations/*Snapshot.cs
+
+# ==============================
+# Secrets & config
+# ==============================
+appsettings.Development.json
+secrets.json
+*.env
+
+# ==============================
+# Logs & temp files
+# ==============================
+*.log
+*.tmp
+*.temp
+
+# ==============================
+# OS files
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Publish output
+# ==============================
+publish/
+wwwroot/bundles/
