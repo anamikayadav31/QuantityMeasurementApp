@@ -12,6 +12,7 @@ using QuantityMeasurementApp.AspApi.Middleware;
 using QuantityMeasurementApp.AspApi.Security;
 using QuantityMeasurementApp.AspApi.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -47,9 +48,9 @@ builder.Services.AddSwaggerGen(options =>
 
 // EF Core - SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
+    options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlOptions => sqlOptions.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null)));
+        npgsqlOptions => npgsqlOptions.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null)));
 
 // Repositories
 builder.Services.AddScoped<IQuantityMeasurementRepository, QuantityMeasurementRepository>();
@@ -120,17 +121,14 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Test")
 
 app.UseGlobalExceptionHandler();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quantity Measurement API v1");
-        c.RoutePrefix = "swagger";
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Quantity Measurement API v1");
+    c.RoutePrefix = "swagger";
+});
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
