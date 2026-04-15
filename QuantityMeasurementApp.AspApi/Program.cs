@@ -111,13 +111,13 @@ var app = builder.Build();
 
 
 // Skip migrations when running inside WebApplicationFactory tests
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Test")
-{
-    using var migrationScope = app.Services.CreateScope();
-    var migrationDb = migrationScope.ServiceProvider.GetRequiredService<AppDbContext>();
-    migrationDb.Database.Migrate();
-    Console.WriteLine("[EF Core] Migrations applied successfully.");
-}
+// if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Test")
+// {
+//     using var migrationScope = app.Services.CreateScope();
+//     var migrationDb = migrationScope.ServiceProvider.GetRequiredService<AppDbContext>();
+//     migrationDb.Database.Migrate();
+//     Console.WriteLine("[EF Core] Migrations applied successfully.");
+// }
 
 app.UseGlobalExceptionHandler();
 

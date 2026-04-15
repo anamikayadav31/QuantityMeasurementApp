@@ -72,7 +72,7 @@ namespace QuantityMeasurementApp.Tests
         [TestMethod]
         public async Task GetByOperation_ReturnsOnlyMatchingRecords()
         {
-            await _repo.SaveAsync(Make("COMPARE", "1 FEET", "12 INCHES", "True"));
+            await _repo.SaveAsync(Make("COMPARE", "1 FEET", " 12 INCHES", "True"));
             await _repo.SaveAsync(Make("ADD", "1 FEET", "12 INCHES", "2 FEET"));
             var result = await _repo.GetByOperationAsync("COMPARE");
             Assert.AreEqual(1, result.Count);
